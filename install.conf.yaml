@@ -6,6 +6,8 @@
 
 - link:
     ~/.gitconfig:
+    ~/.tmux.conf:
+    ~/.ssh/config: ssh-config
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
