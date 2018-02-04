@@ -8,6 +8,7 @@
     ~/.gitconfig:
     ~/.tmux.conf:
     ~/.ssh/config: ssh-config
+    ~/.xinitrc:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
