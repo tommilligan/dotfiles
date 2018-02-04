@@ -1,0 +1,6 @@
+[alias]
+	review = log --oneline --graph --all --decorate
+
+[user]
+	name = Tom Milligan
+	email = code@tommilligan.net
