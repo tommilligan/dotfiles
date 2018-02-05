@@ -9,6 +9,7 @@
     ~/.tmux.conf:
     ~/.ssh/config: ssh-config
     ~/.xinitrc:
+    ~/.vimrc:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
