@@ -1,4 +1,4 @@
-# Personal dotfile
+# Personal dotfiles
 
 See [dotbot](https://github.com/anishathalye/dotbot/) for full instructions.
 

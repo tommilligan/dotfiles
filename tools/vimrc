@@ -1,3 +1,10 @@
+" line numbering
+set number
+
+" syntax highlighting
+syntax on
+
+" new windows should intuitively be split to the bottom-right
 set splitright
 set splitbelow
 
