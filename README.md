@@ -6,7 +6,9 @@ See [dotbot](https://github.com/anishathalye/dotbot/) for full instructions.
 
 Available profiles are stored in `meta/profiles`.
 
-> **WARNING: dotfiles may be overwritten during install**
+## Installation
+
+**WARNING: dotfiles may be overwritten during install**
 
 Install by cloning the repo and then running:
 ```bash
