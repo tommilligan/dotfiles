@@ -8,3 +8,11 @@ syntax on
 set splitright
 set splitbelow
 
+" copy to the x-windows clipboard by default
+set clipboard=unnamedplus
+
+" search as soon as we start typing
+set incsearch
+
+" copy indentation from previous line
+set autoindent
