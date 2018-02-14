@@ -13,6 +13,12 @@ set clipboard=unnamedplus
 
 " search as soon as we start typing
 set incsearch
+" always highlight searches
+set hlsearch
 
 " copy indentation from previous line
 set autoindent
+
+" remap escape from insert mode
+inoremap jj <Esc>
+
