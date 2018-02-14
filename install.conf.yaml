@@ -6,6 +6,7 @@
 
 - link:
     ~/.gitconfig:
+    ~/.gitconfig-user:
     ~/.tmux.conf:
     ~/.ssh/config: ssh-config
     ~/.xinitrc:
