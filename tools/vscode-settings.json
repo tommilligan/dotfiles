@@ -1,4 +1,5 @@
 {
+    "editor.renderWhitespace": "none",
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.hlsearch": true,
