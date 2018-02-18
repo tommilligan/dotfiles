@@ -8,5 +8,6 @@
             "before": ["j","j"],
             "after": ["<Esc>"]
         }
-    ]
+    ],
+    "explorer.confirmDragAndDrop": false
 }
