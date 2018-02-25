@@ -63,6 +63,18 @@ POWERLEVEL9K_SHORTEN_DELIMITER="*"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  docker
+  docker-compose
+  dotenv
+  history
+  npm
+  nvm
+  pip
+  python
+  rust
+  tmux
+  ubuntu
+  yarn
 )
 
 source $ZSH/oh-my-zsh.sh
