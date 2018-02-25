@@ -1,0 +1,2 @@
+alias docker-container-rma="docker container rm $(docker container ls -aq)"
+alias docker-image-rma="docker image rm $(docker image ls -aq)"

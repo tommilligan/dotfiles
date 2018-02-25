@@ -1,5 +1,6 @@
 {
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "all",
+    "editor.tabSize": 2,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.hlsearch": true,
@@ -9,5 +10,6 @@
             "after": ["<Esc>"]
         }
     ],
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "flow.pathToFlow": "./node_modules/.bin/flow"
 }
