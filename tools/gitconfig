@@ -5,5 +5,5 @@
 	default = simple
 
 [alias]
-	review = log --oneline --graph --all --decorate
+	review = log --oneline --graph --decorate
 
