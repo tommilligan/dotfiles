@@ -11,5 +11,7 @@
         }
     ],
     "explorer.confirmDragAndDrop": false,
-    "flow.pathToFlow": "./node_modules/.bin/flow"
+    "flow.useNPMPackagedFlow": true,
+    "javascript.validate.enable": false,
+    "eslint.enable": true
 }
