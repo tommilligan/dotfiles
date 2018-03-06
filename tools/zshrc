@@ -7,13 +7,26 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
 ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Custom dir style
 POWERLEVEL9K_SHORTEN_DIR_LENGTH="2"
 POWERLEVEL9K_SHORTEN_STRATEGY="default"
 POWERLEVEL9K_SHORTEN_DELIMITER="*"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+# Mostly hide context
+DEFAULT_USER="tom"
+
+# Warn when AWS DB set
+POWERLEVEL9K_CUSTOM_DB_WARNING='[[ $DATABASE_URL = *"aws"* ]] && echo "%BREMOTE DB"'
+POWERLEVEL9K_CUSTOM_DB_WARNING_BACKGROUND="red"
+POWERLEVEL9K_CUSTOM_DB_WARNING_FOREGROUND="white"
+
+# Prompt element configuration
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv nvm docker_machine vcs custom_db_warning)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
+
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
