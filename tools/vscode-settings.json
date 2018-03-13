@@ -13,5 +13,6 @@
     "explorer.confirmDragAndDrop": false,
     "flow.useNPMPackagedFlow": true,
     "javascript.validate.enable": false,
-    "eslint.enable": true
+    "eslint.enable": true,
+    "gitlens.keymap": "alternate"
 }
