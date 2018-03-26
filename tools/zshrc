@@ -134,6 +134,24 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+log(){
+  printf "$@\n" >&2
+}
+
+git-check(){
+  if [ "$#" -ne 2 ]; then
+    log "Usage: git-check <diff-base> <path-regex>
+Check file paths modified since <commit> match <regex>.
+Non-matching paths will be printed on stdout."
+    return 3
+  fi
+  # Filepaths
+  git diff --name-only "$1" | \
+  # Filter by regex, return success if nothing found
+  grep -vE "$2" || return 0
+  # If grep successfully got some files, return error code
+  return 4
+}
 
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
