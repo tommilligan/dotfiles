@@ -134,15 +134,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-log(){
-  printf "$@\n" >&2
-}
 
 git-check(){
   if [ "$#" -ne 2 ]; then
-    log "Usage: git-check <diff-base> <path-regex>
+    printf "Usage: git-check <diff-base> <path-regex>
 Check file paths modified since <commit> match <regex>.
-Non-matching paths will be printed on stdout."
+Non-matching paths will be printed on stdout.
+" >&2
     return 3
   fi
   # Filepaths
@@ -152,6 +150,9 @@ Non-matching paths will be printed on stdout."
   # If grep successfully got some files, return error code
   return 4
 }
+
+alias yarn-count='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | wc -l'
+alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sort | uniq | wc -l'
 
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
