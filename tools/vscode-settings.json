@@ -6,13 +6,31 @@
     "vim.hlsearch": true,
     "vim.insertModeKeyBindings": [
         {
-            "before": ["j","j"],
-            "after": ["<Esc>"]
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         }
     ],
     "explorer.confirmDragAndDrop": false,
     "flow.useNPMPackagedFlow": true,
     "javascript.validate.enable": false,
     "eslint.enable": true,
-    "gitlens.keymap": "alternate"
+    "gitlens.keymap": "alternate",
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "tslint.autoFixOnSave": true,
+    "printcode.fontSize": 10,
+    "gitlens.historyExplorer.enabled": true,
 }
