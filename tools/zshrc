@@ -147,6 +147,8 @@ File must be in the format:
   export $(cat $1 | xargs)
 }
 
+alias random-boolean='if (( RANDOM % 2 )); then false; fi'
+
 git-check(){
   if [ "$#" -ne 2 ]; then
     printf "Usage: git-check <diff-base> <path-regex>
