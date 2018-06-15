@@ -135,6 +135,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export-envfile(){
+  if [ "$#" -ne 1 ]; then
+    printf "Usage: export-envfile <env-file>
+Export an environment file into the current shell.
+File must be in the format:
+<KEY>=<VALUE>
+" >&2
+    return 3
+  fi
+  export $(cat $1 | xargs)
+}
+
 git-check(){
   if [ "$#" -ne 2 ]; then
     printf "Usage: git-check <diff-base> <path-regex>
