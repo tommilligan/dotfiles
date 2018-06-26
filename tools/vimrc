@@ -1,24 +1,39 @@
+" plugin management with vim-plug
+" auto first time setup
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Plugins will be downloaded under the specified directory.
+
+" Declare the list of plugins.
+Plug 'connorholyday/vim-snazzy'
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
+
+" Plugin specifig config
+
+
+" General options
 " line numbering
 set number
-
 " syntax highlighting
 syntax on
-
 " new windows should intuitively be split to the bottom-right
 set splitright
 set splitbelow
-
 " copy to the x-windows clipboard by default
 set clipboard=unnamedplus
-
 " search as soon as we start typing
 set incsearch
 " always highlight searches
 set hlsearch
-
 " copy indentation from previous line
 set autoindent
-
 " remap escape from insert mode
 inoremap jj <Esc>
 
