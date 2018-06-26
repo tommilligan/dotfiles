@@ -148,6 +148,7 @@ File must be in the format:
 }
 
 alias random-boolean='if (( RANDOM % 2 )); then false; fi'
+alias yaml-as-json='python -c "import json, sys, yaml; fh = open(sys.argv[1]); print(json.dumps(yaml.load(fh), indent=2)); fh.close"'
 
 git-check(){
   if [ "$#" -ne 2 ]; then
