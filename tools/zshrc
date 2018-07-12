@@ -101,6 +101,7 @@ plugins=(
   rvm
   tmux
   ubuntu
+  vi-mode
   yarn
 )
 
@@ -166,6 +167,9 @@ Non-matching paths will be printed on stdout.
   return 4
 }
 
+# Add yarn
+YARN_HOME="$HOME/.yarn"
+[[ -d "$YARN_HOME" ]] && export PATH=$PATH:$YARN_HOME/bin
 alias yarn-count='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | wc -l'
 alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sort | uniq | wc -l'
 
@@ -173,4 +177,6 @@ alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sor
 RVM_HOME="/usr/share/rvm"
 [[ -d "$RVM_HOME/bin" ]] && export PATH=$PATH:$RVM_HOME/bin
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
+
+
 
