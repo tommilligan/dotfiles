@@ -11,6 +11,7 @@ call plug#begin()
 
 " Declare the list of plugins.
 Plug 'connorholyday/vim-snazzy'
+Plug 'airblade/vim-gitgutter'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
