@@ -191,10 +191,11 @@ YARN_HOME="$HOME/.yarn"
 alias yarn-count='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | wc -l'
 alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sort | uniq | wc -l'
 
+# Add rustup
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
 [[ -d "$RVM_HOME/bin" ]] && export PATH=$PATH:$RVM_HOME/bin
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
-
-
 
