@@ -21,10 +21,16 @@ call plug#end()
 
 
 " General options
+
+" Look & feel
 " line numbering
 set number
 " syntax highlighting
 syntax on
+" Color scheme fix - otherwise colors are dim in tmux sessions of vim
+set background=dark
+
+" Functionality
 " new windows should intuitively be split to the bottom-right
 set splitright
 set splitbelow
