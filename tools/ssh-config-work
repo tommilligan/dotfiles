@@ -1,11 +1,6 @@
 AddKeysToAgent yes
 
-Host git-tommilligan
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/tommilligan_personal
-	IdentitiesOnly yes
-Host git-tessian
+Host github
 	HostName github.com
 	User git
 	IdentityFile ~/.ssh/id_rsa
