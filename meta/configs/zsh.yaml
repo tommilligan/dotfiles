@@ -1,4 +1,5 @@
 
 - link:
     ~/.zshrc: tools/zshrc
+    ~/.zshrc.d/zshrc_aliases: tools/zshrc_aliases
 

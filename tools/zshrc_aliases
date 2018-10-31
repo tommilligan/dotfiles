@@ -1,0 +1,39 @@
+export-envfile(){
+  if [ "$#" -ne 1 ]; then
+    printf "Usage: export-envfile <env-file>
+Export an environment file into the current shell.
+File must be in the format:
+<KEY>=<VALUE>
+" >&2
+    return 3
+  fi
+  export $(cat $1 | xargs)
+}
+
+git-check(){
+  if [ "$#" -ne 2 ]; then
+    printf "Usage: git-check <diff-base> <path-regex>
+Check file paths modified since <commit> match <regex>.
+Non-matching paths will be printed on stdout.
+" >&2
+    return 3
+  fi
+  # Filepaths
+  git diff --name-only "$1" | \
+  # Filter by regex, return success if nothing found
+  grep -vE "$2" || return 0
+  # If grep successfully got some files, return error code
+  return 4
+}
+
+alias random-boolean='if (( RANDOM % 2 )); then false; fi'
+alias yaml-as-json='python -c "import json, sys, yaml; fh = open(sys.argv[1]); print(json.dumps(yaml.load(fh), indent=2)); fh.close"'
+alias dockviz="sudo docker run -it -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+alias grep-env="grep -E 'process\.env|os.*env|ENV'"
+
+# Docker compose shortcuts.
+alias dc='docker-compose'
+alias dcr='docker-compose rm'
+alias dcu='docker-compose up'
+alias dcs='docker-compose stop'
+alias dcb='docker-compose build'
