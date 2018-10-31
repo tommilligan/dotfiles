@@ -7,3 +7,6 @@
 [alias]
 	review = log --oneline --graph --decorate
 
+[commit]
+	gpgsign = true
+
