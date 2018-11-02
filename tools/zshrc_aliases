@@ -37,3 +37,6 @@ alias dcr='docker-compose rm'
 alias dcu='docker-compose up'
 alias dcs='docker-compose stop'
 alias dcb='docker-compose build'
+
+# Overriding aliases
+alias vim='nvim'

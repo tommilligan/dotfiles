@@ -1,48 +1,495 @@
+" ================================== PLUGINS ===================================
 " plugin management with vim-plug
 " auto first time setup
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+if has('nvim')
+  if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
+else
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  endif
 endif
 
 " Plugins will be downloaded under the specified directory.
 call plug#begin()
 
-" Declare the list of plugins.
+" Navigate undo tree
+Plug 'simnalamburt/vim-mundo'
+" Comment/uncomment
+Plug 'scrooloose/nerdcommenter'
+" Find files with c-p
+Plug 'kien/ctrlp.vim'
+" Syntax checkers etc.
+Plug 'scrooloose/syntastic'
+" Change brackets, quotes etc
+Plug 'tpope/vim-surround'
+" Async make.
+Plug 'tpope/vim-dispatch'
+" Mappings for quickfix.
+Plug 'tpope/vim-unimpaired'
+" Make '.' work with plugins
+Plug 'tpope/vim-repeat'
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Awesome status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Generic syntax highlighting for text files
+Plug 'vim-scripts/txt.vim'
+
+" Syntax highlighting for rust.
+Plug 'rust-lang/rust.vim'
+" Color scheme.
+Plug 'nanotech/jellybeans.vim'
 Plug 'connorholyday/vim-snazzy'
-Plug 'airblade/vim-gitgutter'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Close all other buffer (for c-q)
+Plug 'vim-scripts/BufOnly.vim'
+" Switch .hpp/.cpp etc
+Plug 'derekwyatt/vim-fswitch'
+" Auto PEP8 identation for python.
+Plug 'hynek/vim-python-pep8-indent'
+" Format aligned tables.
+Plug 'godlygeek/tabular'
+" Markdown syntax highlighting.
+Plug 'plasticboy/vim-markdown'
+" Browser preview for markdown.
+Plug 'JamshedVesuna/vim-markdown-preview'
+" GLSL syntax highlighting.
+Plug 'tikhomirov/vim-glsl'
+" TOML syntax highlighting.
+Plug 'cespare/vim-toml'
+" Move by / visual select etc on function arguments.
+Plug 'vim-scripts/argtextobj.vim'
+" Autocompletion
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Google indentation for C++.
+Plug 'vim-scripts/google.vim'
+" Highlight good anchors for `FftT` movement.
+Plug 'unblevable/quick-scope'
+" Run autoformatters in a consistent way.
+Plug 'Chiel92/vim-autoformat'
+" Jsonnet syntax highlighting and general support
+Plug 'google/vim-jsonnet'
+" Display git diff in gutter.
+Plug 'mhinz/vim-signify'
+" Improve random stuff.
+Plug 'tpope/vim-vinegar'
+" Typescript syntax highlighting and support
+Plug 'leafgarland/typescript-vim'
+" Typescript as-you-type errors and linting
+Plug 'Quramy/tsuquyomi'
+" Start async processes.
+Plug 'Shougo/vimproc.vim'
+
+if has('nvim')
+  " Requires a modern vim
+  " Async building for many languages (I use it for TS and rust).
+  Plug 'neomake/neomake'
+endif
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+filetype plugin indent on
 
-" Plugin specifig config
+" ========================= GENERAL FLAGS AND SETTINGS =========================
+set autoread                   " Auto reload changed files.
+set backspace=2                " Backspace for sane people.
+set backupdir=~/.vim/backup//  " Backups.
+set cc=+1,+2                   " Column markers.
+set clipboard=unnamedplus      " Yank to the X window clipboard
+set cursorline                 " Show current line in buffer.
+set dir=~/.vim/swap//          " Swap files.
+set expandtab                  " Tabs as spaces.
+set foldlevelstart=100         " Start unfolded
+set foldmethod=syntax          " Use syntax elements for folding
+set hidden
+set history=5000               " Command history.
+set hlsearch                   " Highlight previous search results
+set incsearch                  " Do incremental searching
+set laststatus=2               " Always display the last status
+set mouse=a                    " Mouse support.
+set nohidden                   " Explicitly disallow hidden buffers.
+set number                     " Set line numbers
+set shiftwidth=2               " How many spaces << >> modify.
+set showmatch                  " Show matching braces / brackets
+set showmode                   " Show the mode you're currently in
+set softtabstop=2              " Make tabs act like spaces for editing ops
+set t_Co=256                   " 256 colours terminal
+set textwidth=80               " Width in columns (default)
+set timeout                    " For YCM's recompilation.
+set title                      " Let vim change my tab/window title
+set timeoutlen=1000            " Chord timeouts
+set ttimeoutlen=0              " Chord timeouts
+set ttyfast                    " Fast TTY connection (local)
+set undodir=$HOME/.vim/undo    " Where to save undo histories
+set undofile                   " Save undo's after file closes
+set undolevels=1000            " How many undos
+set undoreload=10000           " Number of lines to save.
+set wildchar=<Tab>             " Get wild comps with Tab.
+set wildmenu                   " Autocomp menu.
+set wildmode=list:longest,full " Shell like filename autocomp.
+set scrolloff=16
+
+" Things to ignore in filename autocomp.
+set wildignore+=*.a,*.o,*.pch,*.bin,*.toc
+set wildignore+=*.pyc,*.gz,*.bz2,*.7z,*.zip
+set wildignore+=*.pdf,*.png,*.pdf,*.mkv,*.mp3,*.mp4
+set wildignore+=*~,*.swp,.git
+
+" ========================== PLUGIN SPECIFIC SETTINGS ==========================
+let g:airline#extensions#hunks#enabled = 0
+let g:airline_powerline_fonts=1
+let g:ctrlp_command = 'CtrlPMixed'
+let g:ctrlp_custom_ignore={
+      \ 'dir': '\v(build|\.git|magicjar|blaze-.*|blaze-.*|)$',
+      \ 'file': '\v(eclimd.log|workbench.xmi|.*\.(pdf|png|eps|ps|aux|mat|class|auto))$',
+      \ }
+let g:ctrlp_max_files=30000
+let g:ctrlp_switch_buffer=2
+let g:EclimCompletionMethod='omnifunc'
+let g:EclimJavaImplInsertAtCursor=1
+let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
+let g:rustfmt_autosave = 0
+let g:rustfmt_fail_silently = 0
+let g:rustfmt_options = "--skip-children"
+let g:rustfmt_command = "rustup run nightly rustfmt"
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗✗'
+let g:syntastic_python_checkers=[]
+let g:syntastic_style_error_symbol='⚠⚠'
+let g:syntastic_style_warning_symbol='⚠⚠'
+let g:syntastic_warning_symbol='⚠⚠'
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
+let g:syntastic_typescript_tslint_args = "--config /home/ccc/r/rw/webapp/tslint.json"
+let g:syntastic_aggregate_errors = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:vim_markdown_folding_disabled=1
+let g:ycm_add_preview_to_complete_opt=1
+let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_complete_in_comments=1
+let g:ycm_complete_in_strings=1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_auto_trigger=1
+let g:ycm_python_binary_path='python'
+let g:EclimHighlightInfo='SyntasticWarningSign'
+let g:EclimHighlightWarning='SyntasticWarningSign'
+let g:EclimHighlightError='SyntasticErrorSign'
+let g:EclimQuickfixSignText=syntastic_error_symbol
+let g:EclimLoclistSignText=syntastic_error_symbol
+let g:EclimPythonValidate=0
+let g:signify_sign_add='+'
+let g:signify_sign_change='±'
+let g:signify_sign_changedelete='±'
+let g:signify_sign_delete='-'
+let g:signify_sign_delete_first_line='‾'
 
 
-" General options
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'il'  :0,
+      \ 'ip'  :1,
+      \ 'ie'  :0,
+      \ }
 
-" Look & feel
-" line numbering
-set number
-" syntax highlighting
-syntax on
-" Color scheme fix - otherwise colors are dim in tmux sessions of vim
-set background=dark
+let g:ycm_rust_src_path='/home/ccc/e/rust/src'
+let g:ycm_semantic_triggers = {
+      \ 'rust' : ['.', '::', '('],
+      \ 'typescript': ['.'],
+      \ }
 
-" Functionality
-" new windows should intuitively be split to the bottom-right
-set splitright
-set splitbelow
-" copy to the x-windows clipboard by default
-set clipboard=unnamedplus
-" search as soon as we start typing
-set incsearch
-" always highlight searches
-set hlsearch
-" copy indentation from previous line
-set autoindent
+let g:formatdef_sortautopep8 = '"isort - | autopep8 -"'
+let g:formatters_python = ['sortautopep8']
+let g:formatdef_rustfmt = '"rustup run nightly rustfmt"'
+let g:autoformat_verbosemode = 0
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
+if has("nvim")
+  function! neomake#makers#ft#typescript#tsc()
+      return {
+          \ 'args': ['--noEmit'],
+          \ 'append_file': 0,
+          \ 'errorformat':
+              \ '%E%f %#(%l\,%c): error %m,' .
+              \ '%E%f %#(%l\,%c): %m,' .
+              \ '%Eerror %m,' .
+              \ '%C%\s%\+%m'
+          \ }
+  endfunction
+
+  function! neomake#makers#ft#python#mypy() abort
+      let l:args = ['%:p']
+      return {
+          \ 'args': l:args,
+          \ 'append_file': 0,
+          \ 'cwd': fnamemodify(neomake#utils#FindGlobFile('setup.py'), ':h'),
+          \ 'errorformat':
+              \ '%E%f:%l: error: %m,' .
+              \ '%W%f:%l: warning: %m,' .
+              \ '%I%f:%l: note: %m',
+          \ }
+  endfunction
+endif
+
+" ========================= CUSTOM COMMANDS & FUNCTIONS ========================
+" Save if modified.
+fun! SaveIfModified()
+  if &modified
+    if empty(bufname('%'))
+      browse confirm write
+    else
+      confirm write
+    endif
+  endif
+endfun
+
+" Strip trailing whitespaces. I use this on BufWrites for source code files.
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+
+
+" Replace grep with rg.
+fun! <SID>ReplaceGrep()
+  if executable('rg')
+    " Use ag over grep
+    set grepprg=rg\ --vimgrep
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'rg %s --color never --files'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+  elseif executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+  endif
+endfunction
+
+fun! CargoBuild()
+  execute "Dispatch cargo build 2>&1 | cat"
+endfun
+
+fun! CargoRun()
+  execute "Dispatch cargo run 2>&1 | cat"
+endfun
+
+fun! CargoTest()
+  execute "Dispatch cargo test 2>&1 | cat"
+endfun
+
+
+" ================================ KEY BINDINGS ================================
+if &term =~ '^screen'
+  map <Esc>[B <Down>
+  imap <Esc>[B <Down>
+  " tmux will send xterm-style keys when its xterm-keys option is on
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
+endif
+
 " remap escape from insert mode
 inoremap jj <Esc>
 
+inoremap <silent> <c-s> <ESC>:w<CR>
+inoremap <c-j> <Down>
+inoremap <c-k> <Up>
+
+nnoremap <silent> <c-s> :w<CR>
+nnoremap <c-e> :MaximizerToggle<CR>
+nnoremap      <c-b> :FSHere<CR>
+nnoremap <c-w><c-h> :winc h<CR>
+nnoremap <c-w><c-j> :winc j<CR>
+nnoremap <c-w><c-k> :winc k<CR>
+nnoremap <c-w><c-l> :winc l<CR>
+nnoremap <silent> <Leader>m :w<CR>:call CargoBuild()<CR>
+nnoremap <silent> <Leader>r :w<CR>:call CargoRun()<CR>
+nnoremap <silent> <Leader>t :w<CR>:call CargoTest()<CR>
+nnoremap <silent> <c-h> :exe "vertical resize -1"<CR>
+nnoremap <silent> <c-j> :exe "resize +1"<CR>
+nnoremap <silent> <c-k> :exe "resize -1"<CR>
+nnoremap <silent> <c-l> :exe "vertical resize +1"<CR>
+nnoremap <silent> <c-q> :q<CR>
+nnoremap <silent> <Leader>gt :GitGutterSignsToggle<CR>
+nnoremap <silent> <Leader>l  O<ESC>jo<ESC>kA
+nnoremap <silent> <Leader>q  {gq}
+nnoremap <silent> <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <silent> <Leader>jf :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <Leader>ss !sort<CR>
+nnoremap <silent> <Leader>u :MundoToggle<CR>
+nnoremap <silent> <m-p> :CtrlPBuffer<CR>
+nnoremap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
+nnoremap <Leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap Y y$
+
+vnoremap <Leader>ss !sort<CR>
+
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+endif
+
+
+" =============================== AUTOCMD MAGIC ================================
+augroup CustomAU
+  autocmd!
+
+  " Call AltWorkaround and ReplaceGrep once
+  au VimEnter * :call <SID>ReplaceGrep()
+
+  " Make FSwitch deal with more file extensions
+  au BufEnter *.cpp let b:fswitchdst='hpp,h'
+        \| let b:fswitchlocs='reg:|src|include,reg:|src.*|include|'
+        \| let b:fsnonewfiles=1
+  au BufEnter *.hpp let b:fswitchdst='cpp,cc,cxx'
+        \| let b:fswitchlocs='reg:|include|src,reg:|include.*|src|'
+        \| let b:fsnonewfiles=1
+
+  au BufEnter *.frag let b:fswitchdst='vert'
+        \| let b:fswitchlocs='.'
+        \| let b:fsnonewfiles=1
+  au BufEnter *.vert let b:fswitchdst='frag'
+        \| let b:fswitchlocs='.'
+        \| let b:fsnonewfiles=1
+  au BufEnter *.java let b:fswitchdst='java'
+        \| let b:fsdisablegloc=1
+        \| let b:fswitchfnames='/$/Test/,/Impl$/Test/'
+        \| let b:fswitchlocs='reg:|java/com/google|javatests/com/google'
+        \| let b:fsnonewfiles=1
+  au BufEnter *Test.java let b:fswitchdst='java'
+        \| let b:fsdisablegloc=1
+        \| let b:fswitchfnames='/Test$//'
+        \| let b:fswitchlocs='reg:|javatests/com/google|java/com/google'
+        \| let b:fsnonewfiles=1
+
+  " Automatically change the working directory to the current one
+  au BufEnter * silent! lcd %:p:h
+
+  " Format C++ files with \ff.
+  au FileType c,cpp
+        \  nnoremap <Leader>ff
+        \ :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<CR>
+        \| vnoremap <Leader>ff
+        \ :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<CR>
+        \| nnoremap <Leader>n :call CppNamespace()<CR>
+        \| nnoremap <Leader>i :call IncludeGuard()<CR>
+
+  " Adapt python tab & line length settings to PEP8
+  au FileType python
+        \  set textwidth=79
+        \| set shiftwidth=4
+        \| set softtabstop=4
+        \| au! BufWritePre <buffer> :silent Autoformat
+        \| au! BufWritePost <buffer> :silent Neomake flake8 mypy
+
+  " Adapt markdown tabs and line length.
+  au FileType mkd
+        \  set textwidth=80
+        \| set shiftwidth=4
+        \| set softtabstop=4
+
+  " Adapt typescript tabs and line length.
+  au FileType typescript
+        \  set textwidth=80
+        \| set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :Autoformat
+
+  au FileType javascript
+        \  set textwidth=120
+        \| set shiftwidth=4
+        \| set softtabstop=4
+        \| au! BufWritePre <buffer> :silent Autoformat
+
+  " Adapt java tabs and line length.
+  au FileType java
+        \  set textwidth=100
+        \| set shiftwidth=2
+        \| set softtabstop=2
+
+  " Adapt rust tabs and line length.
+  au FileType rust
+        \  set textwidth=100
+        \| set shiftwidth=4
+        \| set softtabstop=4
+        \| au! BufWritePost <buffer> :silent Neomake cargo
+        \| au! BufWritePre <buffer> :silent Autoformat
+
+  au BufEnter * if &ft ==# 'tex' || &ft ==# 'plaintex'
+        \|   nnoremap <silent> <Leader>ff ?^$\\|^\s*\(\\subsection\\|\\subsubsection\\|\\chapter\\|\\section\\|\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>/$$$$<CR>
+        \|   set wildignore+=*.aux,*.toc,*.log,*.bib
+        \| endif
+
+  au BufRead,BufNewFile *.tag setlocal ft=javascript
+
+  " Generate PDF in LaTeX, using C-l
+  au FileType tex,plaintex nnoremap <silent> <c-l> :!pdflatex main.tex<CR><CR>
+  au FileType tex,plaintex nnoremap <silent> <Leader>e ea}<ESC>bi\emph{<ESC>ww
+  au FileType tex,plaintex nnoremap <silent> <Leader>b ea}<ESC>bi\textbf{<ESC>ww
+  au FileType tex,plaintex vnoremap <silent> <Leader>e di\emph{<ESC>pa}<ESC>
+  au FileType tex,plaintex vnoremap <silent> <Leader>b di\textbf{<ESC>pa}<ESC>
+
+  au FileType tex,plaintex autocmd BufWritePost <buffer>
+        \ :silent execute "!pdflatex --interaction=nonstopmode main.tex &> /dev/null &"
+        \| redraw
+
+
+  " Show cursorline in active window only.
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+
+" ================================== COLOURS ===================================
+syntax on
+" color snazzy
+
+" Color scheme fix - otherwise colors are dim in tmux sessions of vim
+set background=dark
+
+hi CursorLineNR cterm=Bold ctermfg=White
+highlight SyntasticWarningSign ctermbg=236 ctermfg=166 cterm=Bold
+highlight SyntasticErrorSign ctermbg=236 ctermfg=160 cterm=Bold
+highlight SyntasticStyleWarningSign ctermbg=236 ctermfg=166 cterm=Bold
+highlight SyntasticStyleErrorSign ctermbg=236 ctermfg=166 cterm = Bold
+
+hi SpellBad ctermbg=None ctermfg=160
+hi SpellCap ctermbg=None ctermfg=094
+
+highlight SignifySignAdd    ctermbg=236  ctermfg=28
+highlight SignifySignDelete ctermbg=236  ctermfg=94
+highlight SignifySignChange ctermbg=236  ctermfg=92
+
+highlight ExtraWhitespace ctermbg=094
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()

@@ -2,4 +2,5 @@
 
 - link:
     ~/.vimrc: tools/vimrc
+    ~/.config/nvim/init.vim: tools/vimrc
 
