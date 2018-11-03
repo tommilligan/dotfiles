@@ -166,6 +166,10 @@ alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sor
 # Add rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Add nvm
+# aur script
+[[ -s "/usr/share/nvm/init-nvm.sh" ]] && . "/usr/share/nvm/init-nvm.sh"
+
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
 [[ -d "$RVM_HOME/bin" ]] && export PATH=$PATH:$RVM_HOME/bin
