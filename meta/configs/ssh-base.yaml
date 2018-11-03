@@ -1,0 +1,4 @@
+- link:
+    ~/.ssh/config: tools/ssh-config-base
+    ~/.ssh/config.d/github: tools/ssh-config-github
+
