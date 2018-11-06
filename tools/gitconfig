@@ -6,6 +6,7 @@
 
 [alias]
 	review = log --oneline --graph --decorate
+	squash = !git rebase -i $(git merge-base HEAD master)
 
 [commit]
 	gpgsign = true

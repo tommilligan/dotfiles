@@ -86,7 +86,10 @@ Plug 'leafgarland/typescript-vim'
 " Typescript as-you-type errors and linting
 Plug 'Quramy/tsuquyomi'
 " Start async processes.
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+
+" Python linting
+Plug 'ambv/black'
 
 if has('nvim')
   " Requires a modern vim
@@ -215,11 +218,11 @@ let g:ycm_semantic_triggers = {
 
 let g:formatdef_sortautopep8 = '"isort - | autopep8 -"'
 let g:formatters_python = ['sortautopep8']
-let g:formatdef_rustfmt = '"rustup run nightly rustfmt"'
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
+let g:black_linelength = 79
 
 if has("nvim")
   function! neomake#makers#ft#typescript#tsc()
@@ -407,6 +410,7 @@ augroup CustomAU
         \| set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
+  "     \| au! BufWritePre <buffer> :silent execute ':Black'
         \| au! BufWritePost <buffer> :silent Neomake flake8 mypy
 
   " Adapt markdown tabs and line length.
@@ -473,6 +477,9 @@ syntax on
 
 " Color scheme fix - otherwise colors are dim in tmux sessions of vim
 set background=dark
+
+" Set line lenght ruler color
+highlight ColorColumn ctermbg=4
 
 hi CursorLineNR cterm=Bold ctermfg=White
 highlight SyntasticWarningSign ctermbg=236 ctermfg=166 cterm=Bold
