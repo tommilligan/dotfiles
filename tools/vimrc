@@ -88,8 +88,12 @@ Plug 'Quramy/tsuquyomi'
 " Start async processes.
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
-" Python linting
+" black python linting
 Plug 'ambv/black'
+" prettier JS (and friends) linting
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
 
 if has('nvim')
   " Requires a modern vim
