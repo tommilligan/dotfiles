@@ -1,5 +1,3 @@
-
 - link:
     ~/.gitconfig: tools/gitconfig
     ~/.gitignore_global: tools/gitignore_global
-
