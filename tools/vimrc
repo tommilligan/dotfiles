@@ -419,8 +419,8 @@ augroup CustomAU
         \| set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
-  "     \| au! BufWritePre <buffer> :silent execute ':Black'
         \| au! BufWritePost <buffer> :silent Neomake flake8 mypy
+  "     \| au! BufWritePre <buffer> :silent execute ':Black'
 
   " Adapt markdown tabs and line length.
   au FileType mkd
