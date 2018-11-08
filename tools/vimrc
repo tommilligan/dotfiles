@@ -90,6 +90,8 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " black python linting
 Plug 'ambv/black'
+" python syntax better
+Plug 'vim-python/python-syntax'
 " prettier JS (and friends) linting
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
@@ -107,10 +109,11 @@ call plug#end()
 filetype plugin indent on
 
 " ========================= GENERAL FLAGS AND SETTINGS =========================
+set autochdir                  " Set working dir to current file
 set autoread                   " Auto reload changed files.
 set backspace=2                " Backspace for sane people.
 set backupdir=~/.vim/backup//  " Backups.
-set cc=+1,+2                   " Column markers.
+set cc=81,82                   " Column markers.
 set clipboard=unnamedplus      " Yank to the X window clipboard
 set cursorline                 " Show current line in buffer.
 set dir=~/.vim/swap//          " Swap files.
@@ -130,7 +133,7 @@ set showmatch                  " Show matching braces / brackets
 set showmode                   " Show the mode you're currently in
 set softtabstop=2              " Make tabs act like spaces for editing ops
 set t_Co=256                   " 256 colours terminal
-set textwidth=80               " Width in columns (default)
+set textwidth=0                " Width in columns to autobreak at (default)
 set timeout                    " For YCM's recompilation.
 set title                      " Let vim change my tab/window title
 set timeoutlen=1000            " Chord timeouts
@@ -227,6 +230,7 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 let g:black_linelength = 79
+let g:python_highlight_all = 1
 
 if has("nvim")
   function! neomake#makers#ft#typescript#tsc()
@@ -397,6 +401,7 @@ augroup CustomAU
         \| let b:fsnonewfiles=1
 
   " Automatically change the working directory to the current one
+  " some plugins do not respect autocd
   au BufEnter * silent! lcd %:p:h
 
   " Format C++ files with \ff.
@@ -410,7 +415,7 @@ augroup CustomAU
 
   " Adapt python tab & line length settings to PEP8
   au FileType python
-        \  set textwidth=79
+        \  set cc=80,81
         \| set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
@@ -419,33 +424,28 @@ augroup CustomAU
 
   " Adapt markdown tabs and line length.
   au FileType mkd
-        \  set textwidth=80
-        \| set shiftwidth=4
+        \  set shiftwidth=4
         \| set softtabstop=4
 
   " Adapt typescript tabs and line length.
   au FileType typescript
-        \  set textwidth=80
-        \| set shiftwidth=2
+        \  set shiftwidth=2
         \| set softtabstop=2
         \| au! BufWritePre <buffer> :Autoformat
 
   au FileType javascript
-        \  set textwidth=120
-        \| set shiftwidth=4
+        \  set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt java tabs and line length.
   au FileType java
-        \  set textwidth=100
-        \| set shiftwidth=2
+        \  set shiftwidth=2
         \| set softtabstop=2
 
   " Adapt rust tabs and line length.
   au FileType rust
-        \  set textwidth=100
-        \| set shiftwidth=4
+        \  set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePost <buffer> :silent Neomake cargo
         \| au! BufWritePre <buffer> :silent Autoformat
@@ -477,10 +477,7 @@ augroup END
 
 " ================================== COLOURS ===================================
 syntax on
-" color snazzy
-
-" Color scheme fix - otherwise colors are dim in tmux sessions of vim
-set background=dark
+color jellybeans
 
 " Set line lenght ruler color
 highlight ColorColumn ctermbg=4
