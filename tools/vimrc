@@ -431,7 +431,7 @@ augroup CustomAU
   au FileType typescript
         \  set shiftwidth=2
         \| set softtabstop=2
-        \| au! BufWritePre <buffer> :Autoformat
+        \| au! BufWritePre <buffer> :silent Autoformat | Prettier
 
   au FileType javascript
         \  set shiftwidth=4
@@ -449,6 +449,12 @@ augroup CustomAU
         \| set softtabstop=4
         \| au! BufWritePost <buffer> :silent Neomake cargo
         \| au! BufWritePre <buffer> :silent Autoformat
+
+  " Adapt rust tabs and line length.
+  au FileType yaml
+        \  set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Prettier
 
   au BufEnter * if &ft ==# 'tex' || &ft ==# 'plaintex'
         \|   nnoremap <silent> <Leader>ff ?^$\\|^\s*\(\\subsection\\|\\subsubsection\\|\\chapter\\|\\section\\|\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>/$$$$<CR>
