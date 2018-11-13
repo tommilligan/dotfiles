@@ -156,8 +156,8 @@ bindkey '^[[Z' reverse-menu-complete
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# do not scale alacritty using device_pixel_ratio of screen
-export WINIT_HIDPI_FACTOR=1
+# remap capslock to escape
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 # Add yarn
 YARN_HOME="$HOME/.yarn"

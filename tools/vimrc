@@ -48,7 +48,7 @@ Plug 'vim-scripts/txt.vim'
 Plug 'rust-lang/rust.vim'
 " Color scheme.
 Plug 'nanotech/jellybeans.vim'
-Plug 'connorholyday/vim-snazzy'
+Plug 'ayu-theme/ayu-vim'
 " Close all other buffer (for c-q)
 Plug 'vim-scripts/BufOnly.vim'
 " Switch .hpp/.cpp etc
@@ -116,6 +116,7 @@ set backupdir=~/.vim/backup//  " Backups.
 set cc=81,82                   " Column markers.
 set clipboard=unnamedplus      " Yank to the X window clipboard
 set cursorline                 " Show current line in buffer.
+set diffopt+=vertical          " Show diffs of files split vertically
 set dir=~/.vim/swap//          " Swap files.
 set expandtab                  " Tabs as spaces.
 set foldlevelstart=100         " Start unfolded
@@ -483,7 +484,10 @@ augroup END
 
 " ================================== COLOURS ===================================
 syntax on
-color jellybeans
+" color jellybeans    " jellybeans dark muted theme
+set termguicolors     " enable true colors support
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu       " set colorscheme
 
 " Set line lenght ruler color
 highlight ColorColumn ctermbg=4
