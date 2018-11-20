@@ -251,7 +251,7 @@ if has("nvim")
       return {
           \ 'args': l:args,
           \ 'append_file': 0,
-          \ 'cwd': fnamemodify(neomake#utils#FindGlobFile('setup.py'), ':h'),
+          \ 'cwd': fnamemodify(neomake#utils#FindGlobFile('mypy.ini'), ':h'),
           \ 'errorformat':
               \ '%E%f:%l: error: %m,' .
               \ '%W%f:%l: warning: %m,' .
@@ -424,9 +424,10 @@ augroup CustomAU
   "     \| au! BufWritePre <buffer> :silent execute ':Black'
 
   " Adapt markdown tabs and line length.
-  au FileType mkd
-        \  set shiftwidth=4
-        \| set softtabstop=4
+  au FileType markdown
+        \  set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt typescript tabs and line length.
   au FileType typescript
