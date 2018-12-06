@@ -171,6 +171,12 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Add nvm
 # aur script
 [[ -s "/usr/share/nvm/init-nvm.sh" ]] && . "/usr/share/nvm/init-nvm.sh"
+# ubuntu script
+NVM_DIR="$HOME/.nvm"
+if [ -d $ZSHRCD ]; then
+  export NVM_DIR=$NVM_DIR
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
 
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
