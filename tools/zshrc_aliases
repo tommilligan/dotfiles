@@ -50,3 +50,9 @@ alias dcb='docker-compose build'
 
 # Overriding aliases
 alias vim='nvim'
+
+### Enterprice dependency stuff
+# License/authors of direct python dependencies only (from Pipfile)
+# Require `pip install pipenv pip-licenses`
+alias pipfile-licenses='pip-licenses --with-authors | grep -Ei "$( python -c "from pipenv.core import project; print(\"^ (\" + \"|\".join(project.all_packages.keys()) + \") \", end=\"\")" )"'
+
