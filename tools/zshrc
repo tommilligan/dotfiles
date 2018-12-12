@@ -135,11 +135,11 @@ bindkey '^[[Z' reverse-menu-complete
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -177,6 +177,9 @@ if [ -d $ZSHRCD ]; then
   export NVM_DIR=$NVM_DIR
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
+
+# Add pipenv and other user local scripts
+[[ -d "$HOME/.local/bin" ]] && export PATH=$PATH:$HOME/.local:$HOME/.local/bin
 
 # Add RVM.
 RVM_HOME="/usr/share/rvm"
