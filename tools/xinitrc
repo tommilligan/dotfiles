@@ -72,6 +72,8 @@ pgrep redshift &> /dev/null || redshift &> /dev/null &
 # notifications server
 xfce4-notifyd &
 
+# remap custom keys
+setxkbmap -option caps:escape
 
 # start X server
 exec startlxde
