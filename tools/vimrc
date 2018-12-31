@@ -59,8 +59,6 @@ Plug 'hynek/vim-python-pep8-indent'
 Plug 'godlygeek/tabular'
 " Markdown syntax highlighting.
 Plug 'plasticboy/vim-markdown'
-" Browser preview for markdown.
-Plug 'JamshedVesuna/vim-markdown-preview'
 " GLSL syntax highlighting.
 Plug 'tikhomirov/vim-glsl'
 " TOML syntax highlighting.
@@ -114,7 +112,7 @@ set autoread                   " Auto reload changed files.
 set backspace=2                " Backspace for sane people.
 set backupdir=~/.vim/backup//  " Backups.
 set cc=81,82                   " Column markers.
-set clipboard=unnamedplus      " Yank to the X window clipboard
+set clipboard=unnamed          " Yank to the X window clipboard
 set cursorline                 " Show current line in buffer.
 set diffopt+=vertical          " Show diffs of files split vertically
 set dir=~/.vim/swap//          " Swap files.
