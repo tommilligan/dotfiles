@@ -94,6 +94,8 @@ Plug 'vim-python/python-syntax'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
+" word variant, case, plural substitution
+Plug 'tpope/vim-abolish'
 
 if has('nvim')
   " Requires a modern vim
@@ -112,7 +114,7 @@ set autoread                   " Auto reload changed files.
 set backspace=2                " Backspace for sane people.
 set backupdir=~/.vim/backup//  " Backups.
 set cc=81,82                   " Column markers.
-set clipboard=unnamed          " Yank to the X window clipboard
+set clipboard=unnamed,unnamedplus " Yank to both tmux and X window clipboard
 set cursorline                 " Show current line in buffer.
 set diffopt+=vertical          " Show diffs of files split vertically
 set dir=~/.vim/swap//          " Swap files.
@@ -230,6 +232,32 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 let g:black_linelength = 79
 let g:python_highlight_all = 1
+
+" reset prettier defaults to default *eyeroll*
+" max line length that prettier will wrap on
+let g:prettier#config#print_width = 80
+" number of spaces per indentation level
+let g:prettier#config#tab_width = 2
+" use tabs over spaces
+let g:prettier#config#use_tabs = 'false'
+" print semicolons
+let g:prettier#config#semi = 'true'
+" single quotes over double quotes
+let g:prettier#config#single_quote = 'false'
+" print spaces between brackets
+let g:prettier#config#bracket_spacing = 'true'
+" put > on the last line instead of new line
+let g:prettier#config#jsx_bracket_same_line = 'false'
+" avoid|always
+let g:prettier#config#arrow_parens = 'avoid'
+" none|es5|all
+let g:prettier#config#trailing_comma = 'none'
+" flow|babylon|typescript|css|less|scss|json|graphql|markdown
+let g:prettier#config#parser = 'none'
+" cli-override|file-override|prefer-file
+let g:prettier#config#config_precedence = 'prefer-file'
+" always|never|preserve
+let g:prettier#config#prose_wrap = 'preserve'
 
 if has("nvim")
   function! neomake#makers#ft#typescript#tsc()

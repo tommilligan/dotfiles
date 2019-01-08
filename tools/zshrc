@@ -33,8 +33,15 @@ POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="208"
 POWERLEVEL9K_DIR_HOME_BACKGROUND="255"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="255"
 
+POWERLEVEL9K_VI_INSERT_MODE_STRING="I"
+POWERLEVEL9K_VI_COMMAND_MODE_STRING="N"
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='242'
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='000'
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='220'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='000'
+
 # Prompt element configuration
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv nvm custom_rvm docker_machine vcs custom_db_warning)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv nvm custom_rvm docker_machine vcs vi_mode custom_db_warning)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
 
 
@@ -101,8 +108,7 @@ plugins=(
   rvm
   tmux
   ubuntu
-# Disabled as was causing keybinding conflicts
-# vi-mode
+  vi-mode
   yarn
 )
 
@@ -111,21 +117,29 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 ## reinstate zsh default keybindings when using vi-mode
-# fuzzy up/down search
-# start typing + [Up-Arrow] - fuzzy find history forward
-if [[ "${terminfo[kcuu1]}" != "" ]]; then
-  autoload -U up-line-or-beginning-search
-  zle -N up-line-or-beginning-search
-  bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
-fi
-# start typing + [Down-Arrow] - fuzzy find history backward
-if [[ "${terminfo[kcud1]}" != "" ]]; then
-  autoload -U down-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-  bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
-fi
-# reverse command completion
-bindkey '^[[Z' reverse-menu-complete
+
+# # fuzzy up/down search
+# # start typing + [Up-Arrow] - fuzzy find history forward
+# if [[ "${terminfo[kcuu1]}" != "" ]]; then
+#   autoload -U up-line-or-beginning-search
+#   zle -N up-line-or-beginning-search
+#   bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+# fi
+# 
+# # start typing + [Down-Arrow] - fuzzy find history backward
+# if [[ "${terminfo[kcud1]}" != "" ]]; then
+#   autoload -U down-line-or-beginning-search
+#   zle -N down-line-or-beginning-search
+#   bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+# fi
+# 
+# # reverse command completion
+# bindkey '^[[Z' reverse-menu-complete
+
+# make timeout for escape key a lot shorter
+# 10ms for key sequences
+KEYTIMEOUT=1
+
 ## end vi-mode overrides
 
 
