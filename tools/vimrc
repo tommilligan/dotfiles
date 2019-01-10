@@ -24,6 +24,8 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'scrooloose/nerdcommenter'
 " Find files with c-p
 Plug 'kien/ctrlp.vim'
+" Explore project files with nerdtree
+Plug 'scrooloose/nerdtree'
 " Syntax checkers etc.
 Plug 'scrooloose/syntastic'
 " Change brackets, quotes etc
@@ -383,6 +385,7 @@ nnoremap <silent> <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <silent> <Leader>jf :YcmCompleter GoToDefinition<CR>
 nnoremap <silent> <Leader>ss !sort<CR>
 nnoremap <silent> <Leader>u :MundoToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <silent> <m-p> :CtrlPBuffer<CR>
 nnoremap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
 nnoremap <Leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
