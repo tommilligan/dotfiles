@@ -385,14 +385,17 @@ nnoremap <silent> <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <silent> <Leader>jf :YcmCompleter GoToDefinition<CR>
 nnoremap <silent> <Leader>ss !sort<CR>
 nnoremap <silent> <Leader>u :MundoToggle<CR>
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap ,n :NERDTreeFind<CR>
+nnoremap ,m :NERDTreeToggle<CR>
+nnoremap <Leader>a\ :Tabularize /\\<CR>
+vnoremap <Leader>a\ :Tabularize /\\<CR>
 nnoremap <silent> <m-p> :CtrlPBuffer<CR>
 nnoremap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
 nnoremap <Leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap Y y$
 
-" alias Ggr to better git grep
-:command -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
+" override alias Ggr to better git grep that provides navigable locations
+:command! -nargs=+ Ggr execute 'silent Ggrep!' <q-args> | cw | redraw!
 
 vnoremap <Leader>ss !sort<CR>
 

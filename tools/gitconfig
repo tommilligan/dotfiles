@@ -7,7 +7,7 @@
 [alias]
 	review = log --oneline --graph --decorate
 	squash = !git rebase -i $(git merge-base HEAD master)
-	purge = "!f() { echo \"> Purging $1\"; git push --delete origin \"$1\"; git branch -D \"$1\"; }; for tag in \"$@\"; do f $tag; done;"
+	purge = "!purge() { echo \"> Purging remote $1\"; git push --delete origin \"$1\"; echo \"> Purging local $1\"; git branch -D \"$1\"; }; purge_all() { for tag in $@; do purge $tag; done; }; purge_all"
 
 [commit]
 	gpgsign = true

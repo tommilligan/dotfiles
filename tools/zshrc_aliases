@@ -37,6 +37,9 @@ Fast pytest matching test functions. Drop into debugger on first fail.
 }
 
 alias random-boolean='if (( RANDOM % 2 )); then false; fi'
+json_escape () {
+    python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+}
 alias yaml-as-json='python -c "import json, sys, yaml; fh = open(sys.argv[1]); print(json.dumps(yaml.load(fh), indent=2)); fh.close"'
 alias dockviz="sudo docker run -it -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias grep-env="grep -E 'process\.env|os.*env|ENV'"
