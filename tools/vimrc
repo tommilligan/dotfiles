@@ -170,16 +170,16 @@ let g:ctrlp_switch_buffer=2
 let g:EclimCompletionMethod='omnifunc'
 let g:EclimJavaImplInsertAtCursor=1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
-let g:rustfmt_autosave = 0
+let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 0
 let g:rustfmt_options = "--skip-children"
-let g:rustfmt_command = "rustup run nightly rustfmt"
+let g:rustfmt_command = "rustup run stable rustfmt"
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗✗'
 let g:syntastic_python_checkers=[]
-let g:syntastic_style_error_symbol='⚠⚠'
-let g:syntastic_style_warning_symbol='⚠⚠'
-let g:syntastic_warning_symbol='⚠⚠'
+let g:syntastic_style_error_symbol='⚠'
+let g:syntastic_style_warning_symbol='⚠'
+let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
 let g:syntastic_typescript_tslint_args = "--config /home/ccc/r/rw/webapp/tslint.json"
@@ -358,6 +358,12 @@ endif
 
 " remap escape from insert mode
 inoremap jj <Esc>
+
+" disable arrow keys for habit breaking
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 inoremap <silent> <c-s> <ESC>:w<CR>
 inoremap <c-j> <Down>
