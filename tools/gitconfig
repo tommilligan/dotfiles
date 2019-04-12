@@ -1,16 +1,25 @@
 [include]
-	path = .gitconfig-user
+path = .gitconfig-user
 
 [push]
-	default = simple
+default = simple
 
 [alias]
-	review = log --oneline --graph --decorate
-	squash = !git rebase -i $(git merge-base HEAD master)
-	purge = "!purge() { echo \"> Purging remote $1\"; git push --delete origin \"$1\"; echo \"> Purging local $1\"; git branch -D \"$1\"; }; purge_all() { for tag in $@; do purge $tag; done; }; purge_all"
+# Show a pretty graph. Add --all to see all tags
+review = log --oneline --graph --decorate
+
+# Rebase the brach onto its common ancestor with master
+squash = !git rebase -i $(git merge-base HEAD master)
+
+# Delete a branch both locally and on origin
+purge = "!purge() { echo \"> Purging remote $1\"; git push --delete origin \"$1\"; echo \"> Purging local $1\"; git branch -D \"$1\"; }; purge_all() { for tag in $@; do purge $tag; done; }; purge_all"
+
+# See how the current branch differs from common ancestor
+# If this is empty, the branch has probably been merged with master
+diverge = "!diverge() { local branch_name=$1; shift; git diff $branch_name...HEAD $@; }; diverge"
 
 [commit]
-	gpgsign = true
+gpgsign = true
 
 [core]
-	excludesfile = ~/.gitignore_global
+excludesfile = ~/.gitignore_global
