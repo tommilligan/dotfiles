@@ -262,6 +262,10 @@ let g:prettier#config#config_precedence = 'prefer-file'
 let g:prettier#config#prose_wrap = 'preserve'
 
 if has("nvim")
+  " call the autoload functions, so they are in scope for us to override
+  call neomake#makers#ft#typescript#tsc()
+  call neomake#makers#ft#python#mypy()
+
   function! neomake#makers#ft#typescript#tsc()
       return {
           \ 'args': ['--noEmit'],
