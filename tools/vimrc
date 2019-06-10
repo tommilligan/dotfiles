@@ -360,9 +360,6 @@ if &term =~ '^screen'
   execute "set <xLeft>=\e[1;*D"
 endif
 
-" remap escape from insert mode
-inoremap jj <Esc>
-
 " disable arrow keys for habit breaking
 noremap <Up> <NOP>
 noremap <Down> <NOP>
