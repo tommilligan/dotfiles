@@ -1,0 +1,2 @@
+- link:
+    /etc/docker/daemon.json: tools/docker-daemon.json
