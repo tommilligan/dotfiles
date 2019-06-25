@@ -228,6 +228,11 @@ let g:ycm_semantic_triggers = {
 
 let g:formatdef_pythoncombined = '"isort - | black - 2> /dev/null"'
 let g:formatters_python = ['pythoncombined']
+" Don't use vim-jsonnet formatter
+let g:jsonnet_fmt_on_save = 0
+" Use builtin jsonnet formatter
+let g:formatdef_jfmt = '"jsonnet fmt -n 4 --string-style d --no-pad-arrays -"'
+let g:formatters_jsonnet = ['jfmt']
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
@@ -505,6 +510,13 @@ augroup CustomAU
         \  set shiftwidth=2
         \| set softtabstop=2
         \| au! BufWritePre <buffer> :silent Prettier
+
+  " Use builtin jsonnet formatting
+  au FileType jsonnet
+        \  set textwidth=100
+        \| set shiftwidth=4
+        \| set softtabstop=4
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   au BufEnter * if &ft ==# 'tex' || &ft ==# 'plaintex'
         \|   nnoremap <silent> <Leader>ff ?^$\\|^\s*\(\\subsection\\|\\subsubsection\\|\\chapter\\|\\section\\|\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>/$$$$<CR>
