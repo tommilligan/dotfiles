@@ -226,6 +226,9 @@ let g:ycm_semantic_triggers = {
       \ 'typescript': ['.'],
       \ }
 
+let g:formatdef_clangproto = '"clang-format -style=google -assume-filename=spam.proto"'
+let g:formatters_proto = ['clangproto']
+
 let g:formatdef_pythoncombined = '"isort - | black - 2> /dev/null"'
 let g:formatters_python = ['pythoncombined']
 " Don't use vim-jsonnet formatter
@@ -466,6 +469,12 @@ augroup CustomAU
         \ :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<CR>
         \| nnoremap <Leader>n :call CppNamespace()<CR>
         \| nnoremap <Leader>i :call IncludeGuard()<CR>
+
+  " Format protobuf files with clang-format
+  au FileType proto
+        \  set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt python tab & line length settings to PEP8
   au FileType python
