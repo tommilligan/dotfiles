@@ -200,6 +200,11 @@ RVM_HOME="/usr/share/rvm"
 [[ -d "$RVM_HOME/bin" ]] && export PATH=$PATH:$RVM_HOME/bin
 [[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
 
+# Load external zshrc related files
+GRADLE_BIN="/opt/gradle/gradle-5.5.1/bin"
+if [ -d "$GRADLE_BIN" ]; then
+  export PATH=$PATH:$GRADLE_BIN
+fi
 
 # Load external zshrc related files
 ZSHRCD="$HOME/.zshrc.d"
@@ -209,3 +214,7 @@ if [ -d $ZSHRCD ]; then
   done
 fi
 
+
+source /home/tom/.config/broot/launcher/bash/br
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

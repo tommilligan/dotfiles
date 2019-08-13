@@ -98,6 +98,8 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
 " word variant, case, plural substitution
 Plug 'tpope/vim-abolish'
+" PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 if has('nvim')
   " Requires a modern vim
@@ -228,6 +230,9 @@ let g:ycm_semantic_triggers = {
 
 let g:formatdef_clangproto = '"clang-format -style=google -assume-filename=spam.proto"'
 let g:formatters_proto = ['clangproto']
+let g:formatdef_clangjava = '"clang-format -style=google -assume-filename=spam.java"'
+let g:formatters_java = ['clangjava']
+let g:formatters_groovy = ['clangjava']
 
 let g:formatdef_pythoncombined = '"isort - | black - 2> /dev/null"'
 let g:formatters_python = ['pythoncombined']
@@ -492,7 +497,7 @@ augroup CustomAU
         \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt typescript tabs and line length.
-  au FileType typescript
+  au FileType typescript,json
         \  set shiftwidth=2
         \| set softtabstop=2
         \| au! BufWritePre <buffer> :silent Autoformat | Prettier
@@ -503,9 +508,10 @@ augroup CustomAU
         \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt java tabs and line length.
-  au FileType java
+  au FileType java,groovy
         \  set shiftwidth=2
         \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt rust tabs and line length.
   au FileType rust
