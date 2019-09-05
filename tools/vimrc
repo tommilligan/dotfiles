@@ -68,7 +68,7 @@ Plug 'cespare/vim-toml'
 " Move by / visual select etc on function arguments.
 Plug 'vim-scripts/argtextobj.vim'
 " Autocompletion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --rust-completer' }
 " Google indentation for C++.
 Plug 'vim-scripts/google.vim'
 " Highlight good anchors for `FftT` movement.
