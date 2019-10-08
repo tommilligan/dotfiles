@@ -218,3 +218,5 @@ fi
 source /home/tom/.config/broot/launcher/bash/br
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias clip='xclip -selection c'

@@ -28,6 +28,8 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 " Syntax checkers etc.
 Plug 'scrooloose/syntastic'
+" Allow repeating plugin commands
+Plug 'tpope/vim-repeat'
 " Change brackets, quotes etc
 Plug 'tpope/vim-surround'
 " Async make.
