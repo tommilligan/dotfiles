@@ -1,6 +1,7 @@
 alacritty
 docker
 git-base
+spotifyd
 ssh-base
 tmux
 vim
