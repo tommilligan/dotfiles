@@ -48,8 +48,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Generic syntax highlighting for text files
 Plug 'vim-scripts/txt.vim'
 
-" Syntax highlighting for rust.
-Plug 'rust-lang/rust.vim'
 " Color scheme.
 Plug 'nanotech/jellybeans.vim'
 Plug 'ayu-theme/ayu-vim'
@@ -98,7 +96,7 @@ Plug 'vim-python/python-syntax'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
-" word variant, case, plural substitution
+" word variant, case, plural substitution, fuzzy match case type preserve
 Plug 'tpope/vim-abolish'
 " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -174,10 +172,6 @@ let g:ctrlp_switch_buffer=2
 let g:EclimCompletionMethod='omnifunc'
 let g:EclimJavaImplInsertAtCursor=1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
-let g:rustfmt_autosave = 1
-let g:rustfmt_fail_silently = 0
-let g:rustfmt_options = "--skip-children"
-let g:rustfmt_command = "rustup run stable rustfmt"
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗✗'
 let g:syntastic_python_checkers=[]
@@ -224,11 +218,14 @@ let g:expand_region_text_objects = {
       \ 'ie'  :0,
       \ }
 
+let g:neomake_python_enabled_makers = ["flake8", "mypy"]
+
 let g:ycm_rust_src_path='/home/ccc/e/rust/src'
 let g:ycm_semantic_triggers = {
       \ 'rust' : ['.', '::', '('],
       \ 'typescript': ['.'],
       \ }
+let g:neomake_rust_enabled_makers = []
 
 let g:formatdef_clangproto = '"clang-format -style=google -assume-filename=spam.proto"'
 let g:formatters_proto = ['clangproto']
