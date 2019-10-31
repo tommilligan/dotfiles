@@ -19,6 +19,9 @@ remote-purge = "!remote_purge() { echo \"> $1: fetch\" && git fetch \"$1\" && ec
 # If this is empty, the branch has probably been merged with master
 diverge = "!diverge() { local branch_name=$1; shift; git diff $branch_name...HEAD $@; }; diverge"
 
+# Push a branch to origin and set the upstream tracking branch as the same name
+post = "!post() { git push -u origin \"$(git rev-parse --abbrev-ref HEAD)\"; }; post"
+
 [commit]
 gpgsign = true
 
