@@ -44,7 +44,6 @@ POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='000'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv nvm custom_rvm docker_machine vcs vi_mode custom_db_warning)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
 
-
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
@@ -140,6 +139,13 @@ source $ZSH/oh-my-zsh.sh
 # 10ms for key sequences
 KEYTIMEOUT=1
 
+# Save history lines practially forever
+SAVEHIST="$((2 ** 31))"
+HISTSIZE="$SAVEHIST"
+export SAVEHIST
+export HISTSIZE
+
+
 ## end vi-mode overrides
 
 
@@ -220,3 +226,4 @@ source /home/tom/.config/broot/launcher/bash/br
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias clip='xclip -selection c'
+alias resource='. ~/.zshrc'

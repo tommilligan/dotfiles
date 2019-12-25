@@ -101,6 +101,9 @@ Plug 'tpope/vim-abolish'
 " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+" Navigate to specific locations using letter combinations
+Plug 'easymotion/vim-easymotion'
+
 if has('nvim')
   " Requires a modern vim
   " Async building for many languages (I use it for TS and rust).
