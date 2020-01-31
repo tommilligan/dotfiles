@@ -188,6 +188,9 @@ alias yarn-count-pkg='yarn list | sed -r "s/^\W*([\.a-zA-Z0-9-]+)@.*$/\1/" | sor
 # Add rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Add linkerd
+export PATH="$HOME/.linkerd2/bin:$PATH"
+
 # Add nvm
 # aur script
 [[ -s "/usr/share/nvm/init-nvm.sh" ]] && . "/usr/share/nvm/init-nvm.sh"
@@ -227,3 +230,4 @@ source /home/tom/.config/broot/launcher/bash/br
 
 alias clip='xclip -selection c'
 alias resource='. ~/.zshrc'
+

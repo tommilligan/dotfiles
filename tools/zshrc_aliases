@@ -59,3 +59,9 @@ alias vim='nvim'
 # Require `pip install pipenv pip-licenses`
 alias pipfile-licenses='pip-licenses --with-authors | grep -Ei "$( python -c "from pipenv.core import project; print(\"^ (\" + \"|\".join(project.all_packages.keys()) + \") \", end=\"\")" )"'
 
+alias mk='minikube'
+alias sourceme='. ~/.zshrc'
+
+function cargo-clean-all() {
+  fd Cargo.toml | xargs dirname | xargs -n1 -I '{}' bash -c 'echo "Cleaning {}" && cd {} && cargo clean || exit 255'
+}
