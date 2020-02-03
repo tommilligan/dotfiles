@@ -1,0 +1,6 @@
+Host sloegin
+	HostName sloegin
+	User pi
+	IdentityFile ~/.ssh/id_rsa
+	IdentitiesOnly yes
+
