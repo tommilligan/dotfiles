@@ -27,3 +27,23 @@ gpgsign = true
 
 [core]
 excludesfile = ~/.gitignore_global
+
+[color "diff"]
+commit = green
+meta = yellow
+frag = cyan
+old = red
+new = green
+whitespace = red reverse
+
+# Add diff-highlight. For this to work, diff-highlight must be in your path.
+# You might like to set a symlink, e.g.
+# sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/bin/local/diff-highlight
+[pager]
+diff = diff-highlight | less
+
+[color "diff-highlight"]
+oldNormal = red
+oldHighlight = red bold 52
+newNormal = green
+newHighlight = green bold 22
