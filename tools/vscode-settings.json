@@ -1,12 +1,11 @@
 {
+    "keyboard.dispatch": "keyCode",
     "editor.formatOnSave": true,
     "editor.renderWhitespace": "all",
     "editor.tabSize": 2,
     "explorer.confirmDragAndDrop": false,
     "window.zoomLevel": 0,
-
     "printcode.fontSize": 10,
-
     "vim.hlsearch": true,
     "vim.incsearch": true,
     "vim.insertModeKeyBindings": [
@@ -21,10 +20,9 @@
         }
     ],
     "vim.useSystemClipboard": true,
-
     "javascript.validate.enable": false,
     "eslint.enable": true,
     "tslint.autoFixOnSave": true,
-
     "python.formatting.provider": "black",
+    "liveshare.guestApprovalRequired": true,
 }

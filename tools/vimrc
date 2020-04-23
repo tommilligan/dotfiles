@@ -84,7 +84,7 @@ Plug 'tpope/vim-vinegar'
 " Typescript syntax highlighting and support
 Plug 'leafgarland/typescript-vim'
 " Typescript as-you-type errors and linting
-Plug 'Quramy/tsuquyomi'
+" Plug 'Quramy/tsuquyomi'
 " Start async processes.
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
@@ -182,7 +182,7 @@ let g:syntastic_style_error_symbol='⚠'
 let g:syntastic_style_warning_symbol='⚠'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
+let g:syntastic_typescript_checkers = ['tslint'] " ['tsuquyomi', 'tslint']
 let g:syntastic_typescript_tslint_args = "--config /home/ccc/r/rw/webapp/tslint.json"
 let g:syntastic_aggregate_errors = 1
 let g:tsuquyomi_disable_quickfix = 1
@@ -498,6 +498,10 @@ augroup CustomAU
         \| set softtabstop=2
         \| au! BufWritePre <buffer> :silent Autoformat
 
+  au FileType bzl
+        \  set shiftwidth=4
+        \| set softtabstop=4
+
   " Adapt typescript tabs and line length.
   au FileType typescript,json
         \  set shiftwidth=2
@@ -507,7 +511,7 @@ augroup CustomAU
   au FileType javascript
         \  set shiftwidth=4
         \| set softtabstop=4
-        \| au! BufWritePre <buffer> :silent Autoformat
+        \| au! BufWritePre <buffer> :silent Autoformat | Prettier
 
   " Adapt java tabs and line length.
   au FileType java,groovy

@@ -38,7 +38,7 @@ whitespace = red reverse
 
 # Add diff-highlight. For this to work, diff-highlight must be in your path.
 # You might like to set a symlink, e.g.
-# sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/bin/local/diff-highlight
+# sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
 [pager]
 diff = diff-highlight | less
 
