@@ -83,8 +83,6 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-vinegar'
 " Typescript syntax highlighting and support
 Plug 'leafgarland/typescript-vim'
-" Typescript as-you-type errors and linting
-" Plug 'Quramy/tsuquyomi'
 " Start async processes.
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
@@ -182,10 +180,9 @@ let g:syntastic_style_error_symbol='⚠'
 let g:syntastic_style_warning_symbol='⚠'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_typescript_checkers = ['tslint'] " ['tsuquyomi', 'tslint']
+let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_tslint_args = "--config /home/ccc/r/rw/webapp/tslint.json"
 let g:syntastic_aggregate_errors = 1
-let g:tsuquyomi_disable_quickfix = 1
 let g:vim_markdown_folding_disabled=1
 let g:ycm_add_preview_to_complete_opt=1
 let g:ycm_autoclose_preview_window_after_insertion=1
@@ -412,7 +409,6 @@ nnoremap ,m :NERDTreeToggle<CR>
 nnoremap <Leader>a\ :Tabularize /\\<CR>
 vnoremap <Leader>a\ :Tabularize /\\<CR>
 nnoremap <silent> <m-p> :CtrlPBuffer<CR>
-nnoremap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
 nnoremap <Leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap Y y$
 
