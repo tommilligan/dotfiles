@@ -104,6 +104,7 @@ plugins=(
   pip
   python
   rust
+  rustup
   rvm
   tmux
   ubuntu

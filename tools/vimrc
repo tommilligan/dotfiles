@@ -227,6 +227,8 @@ let g:ycm_semantic_triggers = {
       \ }
 let g:neomake_rust_enabled_makers = []
 
+let g:formatdef_buildifier = '"buildifier"'
+let g:formatters_bzl = ['buildifier']
 let g:formatdef_clangproto = '"clang-format -style=google -assume-filename=spam.proto"'
 let g:formatters_proto = ['clangproto']
 let g:formatdef_clangjava = '"clang-format -style=google -assume-filename=spam.java"'
@@ -497,6 +499,7 @@ augroup CustomAU
   au FileType bzl
         \  set shiftwidth=4
         \| set softtabstop=4
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt typescript tabs and line length.
   au FileType typescript,json
