@@ -102,6 +102,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Navigate to specific locations using letter combinations
 Plug 'easymotion/vim-easymotion'
 
+" Vim training
+" Find the best keystrokes to move between locations.
+" Plug 'AlphaMycelium/pathfinder.vim'
+
 if has('nvim')
   " Requires a modern vim
   " Async building for many languages (I use it for TS and rust).

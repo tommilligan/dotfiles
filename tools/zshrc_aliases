@@ -63,5 +63,5 @@ alias mk='minikube'
 alias sourceme='. ~/.zshrc'
 
 function cargo-clean-all() {
-  fd Cargo.toml | xargs dirname | xargs -n1 -I '{}' bash -c 'echo "Cleaning {}" && cd {} && cargo clean'
+  fd Cargo.toml | xargs dirname | xargs -n1 -I '{}' bash -c 'echo "Cleaning {}" && cd {} && rm -rf target/'
 }
