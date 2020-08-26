@@ -3,6 +3,7 @@ discord
 git-base
 spotifyd
 ssh-base
+terraform
 tmux
 vim
 zsh
