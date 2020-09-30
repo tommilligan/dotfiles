@@ -242,3 +242,9 @@ if [ -f '/home/tom/google-cloud-sdk/path.zsh.inc' ]; then . '/home/tom/google-cl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/tom/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/tom/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Setup graphics tablet, should be onetime only?
+# find output name with `xrandr`
+#
+# xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'DP-1-2'
+# xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'DP-1-2'
