@@ -1,3 +1,6 @@
+" How to check for a given mapping/plugin already using a keybind:
+" :verbose imap <keybind here instead of angle brackets>
+"
 " ================================== PLUGINS ===================================
 " plugin management with vim-plug
 " auto first time setup
@@ -26,8 +29,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'kien/ctrlp.vim'
 " Explore project files with nerdtree
 Plug 'scrooloose/nerdtree'
-" Syntax checkers etc.
-Plug 'scrooloose/syntastic'
+
+" Autocompletion, intellisense etc.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Allow repeating plugin commands
 Plug 'tpope/vim-repeat'
 " Change brackets, quotes etc
@@ -41,6 +46,8 @@ Plug 'tpope/vim-repeat'
 " Git
 Plug 'tpope/vim-fugitive'
 
+
+set statusline^=%{coc#status()}
 " Awesome status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -67,8 +74,6 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'cespare/vim-toml'
 " Move by / visual select etc on function arguments.
 Plug 'vim-scripts/argtextobj.vim'
-" Autocompletion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --rust-completer' }
 " Google indentation for C++.
 Plug 'vim-scripts/google.vim'
 " Highlight good anchors for `FftT` movement.
@@ -106,11 +111,6 @@ Plug 'easymotion/vim-easymotion'
 " Find the best keystrokes to move between locations.
 " Plug 'AlphaMycelium/pathfinder.vim'
 
-if has('nvim')
-  " Requires a modern vim
-  " Async building for many languages (I use it for TS and rust).
-  Plug 'neomake/neomake'
-endif
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -167,6 +167,8 @@ set wildignore+=*~,*.swp,.git
 " ========================== PLUGIN SPECIFIC SETTINGS ==========================
 let g:airline#extensions#hunks#enabled = 0
 let g:airline_powerline_fonts=1
+" show coc status instead of file name/filename at the bottom in statusline
+let g:airline_section_c = '%{coc#status()}'
 let g:ctrlp_command = 'CtrlPMixed'
 let g:ctrlp_custom_ignore={
       \ 'dir': '\v(build|\.git|magicjar|blaze-.*|blaze-.*|)$',
@@ -174,34 +176,11 @@ let g:ctrlp_custom_ignore={
       \ }
 let g:ctrlp_max_files=30000
 let g:ctrlp_switch_buffer=2
-let g:EclimCompletionMethod='omnifunc'
-let g:EclimJavaImplInsertAtCursor=1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗✗'
-let g:syntastic_python_checkers=[]
-let g:syntastic_style_error_symbol='⚠'
-let g:syntastic_style_warning_symbol='⚠'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_typescript_checkers = ['tslint']
-let g:syntastic_typescript_tslint_args = "--config /home/ccc/r/rw/webapp/tslint.json"
-let g:syntastic_aggregate_errors = 1
+" extensions to install for coc
+let g:coc_global_extensions = ['coc-python', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer']
+
 let g:vim_markdown_folding_disabled=1
-let g:ycm_add_preview_to_complete_opt=1
-let g:ycm_autoclose_preview_window_after_insertion=1
-let g:ycm_complete_in_comments=1
-let g:ycm_complete_in_strings=1
-let g:ycm_confirm_extra_conf=0
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_auto_trigger=1
-let g:ycm_python_binary_path='python'
-let g:EclimHighlightInfo='SyntasticWarningSign'
-let g:EclimHighlightWarning='SyntasticWarningSign'
-let g:EclimHighlightError='SyntasticErrorSign'
-let g:EclimQuickfixSignText=syntastic_error_symbol
-let g:EclimLoclistSignText=syntastic_error_symbol
-let g:EclimPythonValidate=0
 let g:signify_sign_add='+'
 let g:signify_sign_change='±'
 let g:signify_sign_changedelete='±'
@@ -222,14 +201,6 @@ let g:expand_region_text_objects = {
       \ 'ie'  :0,
       \ }
 
-let g:neomake_python_enabled_makers = ["flake8", "mypy"]
-
-let g:ycm_rust_src_path='/home/ccc/e/rust/src'
-let g:ycm_semantic_triggers = {
-      \ 'rust' : ['.', '::', '('],
-      \ 'typescript': ['.'],
-      \ }
-let g:neomake_rust_enabled_makers = []
 
 let g:formatdef_buildifier = '"buildifier"'
 let g:formatters_bzl = ['buildifier']
@@ -279,36 +250,6 @@ let g:prettier#config#config_precedence = 'prefer-file'
 " always|never|preserve
 let g:prettier#config#prose_wrap = 'preserve'
 
-if has("nvim")
-  " call the autoload functions, so they are in scope for us to override
-  call neomake#makers#ft#typescript#tsc()
-  call neomake#makers#ft#python#mypy()
-
-  function! neomake#makers#ft#typescript#tsc()
-      return {
-          \ 'args': ['--noEmit'],
-          \ 'append_file': 0,
-          \ 'errorformat':
-              \ '%E%f %#(%l\,%c): error %m,' .
-              \ '%E%f %#(%l\,%c): %m,' .
-              \ '%Eerror %m,' .
-              \ '%C%\s%\+%m'
-          \ }
-  endfunction
-
-  function! neomake#makers#ft#python#mypy() abort
-      let l:args = ['%:p']
-      return {
-          \ 'args': l:args,
-          \ 'append_file': 0,
-          \ 'cwd': fnamemodify(neomake#utils#FindGlobFile('mypy.ini'), ':h'),
-          \ 'errorformat':
-              \ '%E%f:%l: error: %m,' .
-              \ '%W%f:%l: warning: %m,' .
-              \ '%I%f:%l: note: %m',
-          \ }
-  endfunction
-endif
 
 " ========================= CUSTOM COMMANDS & FUNCTIONS ========================
 " Save if modified.
@@ -406,8 +347,48 @@ nnoremap <silent> <c-q> :q<CR>
 nnoremap <silent> <Leader>gt :GitGutterSignsToggle<CR>
 nnoremap <silent> <Leader>l  O<ESC>jo<ESC>kA
 nnoremap <silent> <Leader>q  {gq}
-nnoremap <silent> <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <silent> <Leader>jf :YcmCompleter GoToDefinition<CR>
+
+" Coc/coc related actions
+"
+"" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+"
+"" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+"
+" Jump around places
+nnoremap <silent> <Leader>jd :call CocAction('jumpDefinition')<CR>
+nnoremap <silent> <Leader>jy :call CocAction('jumpTypeDefinition')<CR>
+nnoremap <silent> <Leader>ji :call CocAction('jumpImplementation')<CR>
+nnoremap <silent> <Leader>jr :call CocAction('jumpReferences')<CR>
+"
+" Navigate diagnostics
+nnoremap <silent> <Leader>[g :call CocAction('diagnosticPrev')<CR>
+nnoremap <silent> <Leader>]g :call CocAction('diagnosticNext')<CR>
+"
+" Rename symbol
+nnoremap <silent> <Leader>rn :call CocAction('rename')<CR>
+"
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
+
 nnoremap <silent> <Leader>ss !sort<CR>
 nnoremap <silent> <Leader>u :MundoToggle<CR>
 nnoremap ,n :NERDTreeFind<CR>
@@ -491,8 +472,6 @@ augroup CustomAU
         \| set shiftwidth=4
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
-        \| au! BufWritePost <buffer> :silent Neomake flake8 mypy
-  "     \| au! BufWritePre <buffer> :silent execute ':Black'
 
   " Adapt markdown tabs and line length.
   au FileType markdown
@@ -526,7 +505,6 @@ augroup CustomAU
   au FileType rust
         \  set shiftwidth=4
         \| set softtabstop=4
-        \| au! BufWritePost <buffer> :silent Neomake cargo
         \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt yaml tabs and formatter
@@ -578,10 +556,9 @@ colorscheme ayu       " set colorscheme
 highlight ColorColumn ctermbg=4
 
 hi CursorLineNR cterm=Bold ctermfg=White
-highlight SyntasticWarningSign ctermbg=236 ctermfg=166 cterm=Bold
-highlight SyntasticErrorSign ctermbg=236 ctermfg=160 cterm=Bold
-highlight SyntasticStyleWarningSign ctermbg=236 ctermfg=166 cterm=Bold
-highlight SyntasticStyleErrorSign ctermbg=236 ctermfg=166 cterm = Bold
+
+" coc error text in red is hard to read
+highlight CocErrorSign ctermfg=209 ctermbg=None
 
 hi SpellBad ctermbg=None ctermfg=160
 hi SpellCap ctermbg=None ctermfg=094

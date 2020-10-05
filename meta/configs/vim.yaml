@@ -1,3 +1,4 @@
 - link:
     ~/.vimrc: tools/vimrc
     ~/.config/nvim/init.vim: tools/vimrc
+    ~/.config/nvim/coc-settings.json: tools/coc-settings.json
