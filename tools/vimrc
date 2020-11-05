@@ -47,7 +47,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 
 
-set statusline^=%{coc#status()}
 " Awesome status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -179,6 +178,7 @@ let g:ctrlp_switch_buffer=2
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " extensions to install for coc
 let g:coc_global_extensions = ['coc-python', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer']
+let g:coc_filetype_map = { 'typescript': 'typescriptreact' }
 
 let g:vim_markdown_folding_disabled=1
 let g:signify_sign_add='+'
@@ -367,10 +367,10 @@ function! s:check_back_space() abort
 endfunction
 "
 " Jump around places
-nnoremap <silent> <Leader>jd :call CocAction('jumpDefinition')<CR>
-nnoremap <silent> <Leader>jy :call CocAction('jumpTypeDefinition')<CR>
-nnoremap <silent> <Leader>ji :call CocAction('jumpImplementation')<CR>
-nnoremap <silent> <Leader>jr :call CocAction('jumpReferences')<CR>
+nnoremap <silent> <Leader>jd <Plug>(coc-definition)
+nnoremap <silent> <Leader>jy <Plug>(coc-type-definition)
+nnoremap <silent> <Leader>ji <Plug>(coc-implementation)
+nnoremap <silent> <Leader>jr <Plug>(coc-references)
 "
 " Navigate diagnostics
 nnoremap <silent> <Leader>[g :call CocAction('diagnosticPrev')<CR>
@@ -558,7 +558,7 @@ highlight ColorColumn ctermbg=4
 hi CursorLineNR cterm=Bold ctermfg=White
 
 " coc error text in red is hard to read
-highlight CocErrorSign ctermfg=209 ctermbg=None
+highlight CocErrorSign ctermfg=LightRed guifg=#f8845d
 
 hi SpellBad ctermbg=None ctermfg=160
 hi SpellCap ctermbg=None ctermfg=094

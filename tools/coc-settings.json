@@ -1,0 +1,23 @@
+{
+  "coc.preferences.rootPatterns": [
+    "Dockerfile",
+    "package.json",
+    "setup.py",
+    "Cargo.toml"
+  ],
+  "python.analysis.diagnosticEnabled": true,
+  "python.linting.enabled": true,
+  "python.linting.banditArgs": ["-s=B101,B322"],
+  "python.linting.banditEnabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck"
+  },
+  "rust-analyzer.checkOnSave.enable": true,
+  "rust-analyzer.checkOnSave.allTargets": true,
+  "rust-analyzer.checkOnSave.allFeatures": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true
+}
