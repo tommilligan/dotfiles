@@ -215,7 +215,7 @@ let g:formatters_python = ['pythoncombined']
 " Don't use vim-jsonnet formatter
 let g:jsonnet_fmt_on_save = 0
 " Use builtin jsonnet formatter
-let g:formatdef_jfmt = '"jsonnet fmt -n 4 --string-style d --no-pad-arrays -"'
+let g:formatdef_jfmt = '"jsonnetfmt -n 4 --string-style d --no-pad-arrays -"'
 let g:formatters_jsonnet = ['jfmt']
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
@@ -367,10 +367,10 @@ function! s:check_back_space() abort
 endfunction
 "
 " Jump around places
-nnoremap <silent> <Leader>jd <Plug>(coc-definition)
-nnoremap <silent> <Leader>jy <Plug>(coc-type-definition)
-nnoremap <silent> <Leader>ji <Plug>(coc-implementation)
-nnoremap <silent> <Leader>jr <Plug>(coc-references)
+nnoremap <silent> <Leader>jd :call CocAction('jumpDefinition')<CR>
+nnoremap <silent> <Leader>jy :call CocAction('typeDefinition')<CR>
+nnoremap <silent> <Leader>ji :call CocAction('implementation')<CR>
+nnoremap <silent> <Leader>jr :call CocAction('references')<CR>
 "
 " Navigate diagnostics
 nnoremap <silent> <Leader>[g :call CocAction('diagnosticPrev')<CR>

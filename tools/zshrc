@@ -136,6 +136,9 @@ source $ZSH/oh-my-zsh.sh
 # # reverse command completion
 # bindkey '^[[Z' reverse-menu-complete
 
+# overload vi visual mode back to editing in vim
+bindkey -M vicmd 'v' edit-command-line
+
 # make timeout for escape key a lot shorter
 # 10ms for key sequences
 KEYTIMEOUT=1
@@ -159,7 +162,7 @@ export HISTSIZE
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -229,7 +232,7 @@ export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
 
-source /home/tom/.config/broot/launcher/bash/br
+[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -237,14 +240,17 @@ alias clip='xclip -selection c'
 alias resource='. ~/.zshrc'
 alias esm='exercism'
 
+function set-draw() {
+  # Find device names with `xsetwacom --list`, `HEAD-x` indicates screen number
+  xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'HEAD-2'
+  xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'HEAD-2'
+}
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/tom/google-cloud-sdk/path.zsh.inc' ]; then . '/home/tom/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/tom/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/tom/google-cloud-sdk/completion.zsh.inc'; fi
 
-# Setup graphics tablet, should be onetime only?
-# find output name with `xrandr`
-#
-# xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'DP-1-2'
-# xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'DP-1-2'
+
+export TERM=xterm-256color

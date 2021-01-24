@@ -51,9 +51,6 @@ alias dcu='docker-compose up'
 alias dcs='docker-compose stop'
 alias dcb='docker-compose build'
 
-# Overriding aliases
-alias vim='nvim'
-
 ### Enterprice dependency stuff
 # License/authors of direct python dependencies only (from Pipfile)
 # Require `pip install pipenv pip-licenses`
@@ -65,3 +62,5 @@ alias sourceme='. ~/.zshrc'
 function cargo-clean-all() {
   find . -name node_modules -prune -false -o -type d -name target | xargs -n1 -I '{}' bash -c 'echo "Removing {}" && rm -rf "{}"'
 }
+
+alias vi='nvim'
