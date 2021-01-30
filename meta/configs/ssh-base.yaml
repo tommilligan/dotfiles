@@ -3,3 +3,4 @@
     ~/.ssh/config.d/github: tools/ssh-config-github
     ~/.ssh/config.d/gitlab: tools/ssh-config-gitlab
     ~/.ssh/config.d/sloegin: tools/ssh-config-sloegin
+    ~/.ssh/config.d/dewberry: tools/ssh-config-dewberry

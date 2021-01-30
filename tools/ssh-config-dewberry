@@ -1,0 +1,6 @@
+Host dewberry
+	HostName dewberry
+	User pi
+	IdentityFile ~/.ssh/id_rsa
+	IdentitiesOnly yes
+
