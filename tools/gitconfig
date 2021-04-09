@@ -9,7 +9,7 @@ default = simple
 review = log --oneline --graph --decorate
 
 # Rebase the brach onto its common ancestor with master
-squash = !git rebase -i $(git merge-base HEAD master)
+squash = "!squash() { local common_ancestor=$1; git rebase -i $(git merge-base HEAD $common_ancestor); }; squash"
 
 # Delete a branch both locally and on origin
 purge = "!purge() { echo \"> delete merged branches\" && git branch --list --merged master | rg -v ' master$' | xargs git branch -d; }; purge"
