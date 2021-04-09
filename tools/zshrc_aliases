@@ -64,3 +64,5 @@ function cargo-clean-all() {
 }
 
 alias vi='nvim'
+
+alias methanol='gcloud beta compute ssh --zone "us-east1-b" "methanol" --project "scratch-303509"'
