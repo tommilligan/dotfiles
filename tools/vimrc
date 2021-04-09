@@ -94,10 +94,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ambv/black'
 " python syntax better
 Plug 'vim-python/python-syntax'
-" prettier JS (and friends) linting
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
 " word variant, case, plural substitution, fuzzy match case type preserve
 Plug 'tpope/vim-abolish'
 " PlugInstall and PlugUpdate will clone fzf in ~/.fzf and run the install script
@@ -110,6 +106,8 @@ Plug 'easymotion/vim-easymotion'
 " Find the best keystrokes to move between locations.
 " Plug 'AlphaMycelium/pathfinder.vim'
 
+" Run tests from your cursor position in vim
+Plug 'vim-test/vim-test'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -177,7 +175,7 @@ let g:ctrlp_max_files=30000
 let g:ctrlp_switch_buffer=2
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " extensions to install for coc
-let g:coc_global_extensions = ['coc-python', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-python', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-prettier']
 let g:coc_filetype_map = { 'typescript': 'typescriptreact' }
 
 let g:vim_markdown_folding_disabled=1
@@ -223,33 +221,6 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 let g:black_linelength = 79
 let g:python_highlight_all = 1
-
-" reset prettier defaults to default *eyeroll*
-" max line length that prettier will wrap on
-let g:prettier#config#print_width = 80
-" number of spaces per indentation level
-let g:prettier#config#tab_width = 2
-" use tabs over spaces
-let g:prettier#config#use_tabs = 'false'
-" print semicolons
-let g:prettier#config#semi = 'true'
-" single quotes over double quotes
-let g:prettier#config#single_quote = 'false'
-" print spaces between brackets
-let g:prettier#config#bracket_spacing = 'true'
-" put > on the last line instead of new line
-let g:prettier#config#jsx_bracket_same_line = 'false'
-" avoid|always
-let g:prettier#config#arrow_parens = 'avoid'
-" none|es5|all
-let g:prettier#config#trailing_comma = 'none'
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown
-let g:prettier#config#parser = 'none'
-" cli-override|file-override|prefer-file
-let g:prettier#config#config_precedence = 'prefer-file'
-" always|never|preserve
-let g:prettier#config#prose_wrap = 'preserve'
-
 
 " ========================= CUSTOM COMMANDS & FUNCTIONS ========================
 " Save if modified.
@@ -365,7 +336,11 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-"
+
+
+" Run tests in vim
+nnoremap <silent> <C-t><C-t> :TestNearest<CR>
+
 " Jump around places
 nnoremap <silent> <Leader>jd :call CocAction('jumpDefinition')<CR>
 nnoremap <silent> <Leader>jy :call CocAction('typeDefinition')<CR>
@@ -477,7 +452,6 @@ augroup CustomAU
   au FileType markdown
         \  set shiftwidth=2
         \| set softtabstop=2
-        \| au! BufWritePre <buffer> :silent Autoformat
 
   au FileType bzl
         \  set shiftwidth=4
@@ -485,15 +459,13 @@ augroup CustomAU
         \| au! BufWritePre <buffer> :silent Autoformat
 
   " Adapt typescript tabs and line length.
-  au FileType typescript,json
+  au FileType typescript,json,typescriptreact
         \  set shiftwidth=2
         \| set softtabstop=2
-        \| au! BufWritePre <buffer> :silent Autoformat | Prettier
 
   au FileType javascript
         \  set shiftwidth=4
         \| set softtabstop=4
-        \| au! BufWritePre <buffer> :silent Autoformat | Prettier
 
   " Adapt java tabs and line length.
   au FileType java,groovy
@@ -511,7 +483,6 @@ augroup CustomAU
   au FileType yaml
         \  set shiftwidth=2
         \| set softtabstop=2
-        \| au! BufWritePre <buffer> :silent Prettier
 
   " Use builtin jsonnet formatting
   au FileType jsonnet
