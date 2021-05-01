@@ -12,8 +12,8 @@ review = log --oneline --graph --decorate
 squash = "!squash() { local common_ancestor=$1; git rebase -i $(git merge-base HEAD $common_ancestor); }; squash"
 
 # Delete a branch both locally and on origin
-purge = "!purge() { echo \"> delete merged branches\" && git branch --list --merged master | rg -v ' master$' | xargs git branch -d; }; purge"
-remote-purge = "!remote_purge() { echo \"> $1: fetch\" && git fetch \"$1\" && echo \"> $1: prune\" && git remote prune \"$1\" && echo \"> $1: delete merged branches\" && git branch --list --remote --merged \"$1/master\" | rg \".*\\b${1}/(\\S+)\\b.*\" -r '$1' | rg -v '^(master|staging|HEAD)$' | xargs git push \"$1\" --delete; }; remote_purge"
+purge = "!purge() { local branch_name=\"$1\"; echo \"> deleting branches merged into $branch_name\" && git branch --list --merged \"$branch_name\" | rg -v \" ${branch_name}$\" | xargs --no-run-if-empty git branch -d; }; purge"
+  remote-purge = "!remote_purge() { local remote_name=\"$1\"; local branch_name=\"$2\"; echo \"> $remote_name: fetch\" && git fetch \"$remote_name\" && echo \"> $remote_name: prune\" && git remote prune \"$remote_name\" && echo \"> $1: deleting branches merged into $remote_name/$branch_name\" && git branch --list --remote --merged \"$remote_name/$branch_name\" | rg \".*\\b${1}/(\\S+)\\b.*\" -r '$1' | rg -v \"^(${branch_name}|master|main|staging|HEAD)$\" | xargs --no-run-if-empty git push \"$remote_name\" --delete; }; remote_purge"
 
 # See how the current branch differs from common ancestor
 # If this is empty, the branch has probably been merged with master
