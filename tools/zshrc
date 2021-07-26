@@ -94,6 +94,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  asdf
   git
   docker
   docker-compose
@@ -210,9 +211,9 @@ fi
 [[ -d "$HOME/.local/bin" ]] && export PATH=$PATH:$HOME/.local:$HOME/.local/bin
 
 # Add RVM.
-RVM_HOME="/usr/share/rvm"
+RVM_HOME="~/.rvm"
 [[ -d "$RVM_HOME/bin" ]] && export PATH=$PATH:$RVM_HOME/bin
-[[ -s "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
+[[ -f "$RVM_HOME/scripts/rvm" ]] && . "$RVM_HOME/scripts/rvm"
 
 # Load external zshrc related files
 GRADLE_BIN="/opt/gradle/gradle-5.5.1/bin"
@@ -245,6 +246,8 @@ function wacup() {
   # Find device names with `xsetwacom --list`, `HEAD-x` indicates screen number
   xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'HEAD-2'
   xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'HEAD-2'
+  xsetwacom --set 'Wacom One by Wacom M Pen stylus' Rotate half
+  xsetwacom --set 'Wacom One by Wacom M Pen eraser' Rotate half
 }
 
 # The next line updates PATH for the Google Cloud SDK.

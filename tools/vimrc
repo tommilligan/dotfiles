@@ -202,6 +202,8 @@ let g:expand_region_text_objects = {
 
 let g:formatdef_buildifier = '"buildifier"'
 let g:formatters_bzl = ['buildifier']
+let g:formatdef_clangc = '"clang-format -style=google -assume-filename=spam.c"'
+let g:formatters_c = ['clangc']
 let g:formatdef_clangproto = '"clang-format -style=google -assume-filename=spam.proto"'
 let g:formatters_proto = ['clangproto']
 let g:formatdef_clangjava = '"clang-format -style=google -assume-filename=spam.java"'
@@ -428,12 +430,9 @@ augroup CustomAU
 
   " Format C++ files with \ff.
   au FileType c,cpp
-        \  nnoremap <Leader>ff
-        \ :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<CR>
-        \| vnoremap <Leader>ff
-        \ :pyf /usr/share/vim/addons/syntax/clang-format-3.5.py<CR>
-        \| nnoremap <Leader>n :call CppNamespace()<CR>
-        \| nnoremap <Leader>i :call IncludeGuard()<CR>
+        \  set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Autoformat
 
   " Format protobuf files with clang-format
   au FileType proto
