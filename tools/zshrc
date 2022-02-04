@@ -105,7 +105,6 @@ plugins=(
   pip
   python
   rust
-  rustup
   rvm
   tmux
   ubuntu
@@ -182,7 +181,9 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # remap capslock to escape
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+alias maplock="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
+alias UNMAPLOCK="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'"
+maplock
 # python -c 'from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'
 
 # Add yarn
@@ -258,3 +259,13 @@ if [ -f '/home/tom/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/tom/goo
 
 
 export TERM=xterm-256color
+
+if test -x =kubectl; then source <(kubectl completion zsh); fi
+
+function rgsed () {
+  local find=$1
+  local replace=$2
+
+  rg "$find" -l0 | xargs -r0 sed -r -i "s/$find/$replace/g"
+}
+

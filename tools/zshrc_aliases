@@ -44,13 +44,6 @@ alias yaml-as-json='python -c "import json, sys, yaml; fh = open(sys.argv[1]); p
 alias dockviz="sudo docker run -it -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 alias grep-env="grep -E 'process\.env|os.*env|ENV'"
 
-# Docker compose shortcuts.
-alias dc='docker-compose'
-alias dcr='docker-compose rm'
-alias dcu='docker-compose up'
-alias dcs='docker-compose stop'
-alias dcb='docker-compose build'
-
 ### Enterprice dependency stuff
 # License/authors of direct python dependencies only (from Pipfile)
 # Require `pip install pipenv pip-licenses`

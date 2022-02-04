@@ -14,12 +14,11 @@
     "yaml"
   ],
   "python.analysis.diagnosticEnabled": true,
+  "python.formatting.provider": "black",
   "python.linting.enabled": true,
-  "python.linting.banditArgs": ["-s=B101,B322"],
-  "python.linting.banditEnabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.mypyEnabled": true,
-  "python.linting.pylintEnabled": false,
+  "pyright.disableDiagnostics": true,
   "diagnostic.checkCurrentLine": true,
   "diagnostic-languageserver.filetypes": {
     "sh": "shellcheck"
@@ -28,5 +27,6 @@
   "rust-analyzer.checkOnSave.allTargets": true,
   "rust-analyzer.checkOnSave.allFeatures": null,
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
-  "rust-analyzer.procMacro.enable": true
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.diagnostics.disabled": ["inactive-code"]
 }

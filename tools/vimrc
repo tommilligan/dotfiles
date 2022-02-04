@@ -1,3 +1,6 @@
+" User aliases
+:command SourceMe source ~/.vimrc
+
 " How to check for a given mapping/plugin already using a keybind:
 " :verbose imap <keybind here instead of angle brackets>
 "
@@ -54,9 +57,11 @@ Plug 'vim-airline/vim-airline-themes'
 " Generic syntax highlighting for text files
 Plug 'vim-scripts/txt.vim'
 
-" Color scheme.
+" Color scheme. colorscheme
 Plug 'nanotech/jellybeans.vim'
 Plug 'ayu-theme/ayu-vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'bluz71/vim-nightfly-guicolors'
 " Close all other buffer (for c-q)
 Plug 'vim-scripts/BufOnly.vim'
 " Switch .hpp/.cpp etc
@@ -108,6 +113,9 @@ Plug 'easymotion/vim-easymotion'
 
 " Run tests from your cursor position in vim
 Plug 'vim-test/vim-test'
+
+" Terraform support
+Plug 'hashivim/vim-terraform'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -175,7 +183,7 @@ let g:ctrlp_max_files=30000
 let g:ctrlp_switch_buffer=2
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " extensions to install for coc
-let g:coc_global_extensions = ['coc-python', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-prettier']
+let g:coc_global_extensions = ['coc-pyright', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-prettier']
 let g:coc_filetype_map = { 'typescript': 'typescriptreact' }
 
 let g:vim_markdown_folding_disabled=1
@@ -345,9 +353,9 @@ nnoremap <silent> <C-t><C-t> :TestNearest<CR>
 
 " Jump around places
 nnoremap <silent> <Leader>jd :call CocAction('jumpDefinition')<CR>
-nnoremap <silent> <Leader>jy :call CocAction('typeDefinition')<CR>
-nnoremap <silent> <Leader>ji :call CocAction('implementation')<CR>
-nnoremap <silent> <Leader>jr :call CocAction('references')<CR>
+nnoremap <silent> <Leader>jy :call CocAction('jumpTypeDefinition')<CR>
+nnoremap <silent> <Leader>ji :call CocAction('jumpImplementation')<CR>
+nnoremap <silent> <Leader>jr :call CocAction('jumpReferences')<CR>
 "
 " Navigate diagnostics
 nnoremap <silent> <Leader>[g :call CocAction('diagnosticPrev')<CR>
@@ -518,9 +526,22 @@ augroup END
 " ================================== COLOURS ===================================
 syntax on
 " color jellybeans    " jellybeans dark muted theme
-set termguicolors     " enable true colors support
-let ayucolor="dark"   " for dark version of theme
-colorscheme ayu       " set colorscheme
+
+" enable true colors support
+if has('termguicolors')
+  set termguicolors
+endif
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+let ayucolor="dark"   " for dark version of theme, if ayu selected
+
+" alternatives: ayu, jellybean, nightfly
+colorscheme nightfly
 
 " Set line lenght ruler color
 highlight ColorColumn ctermbg=4
