@@ -183,7 +183,7 @@ let g:ctrlp_max_files=30000
 let g:ctrlp_switch_buffer=2
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " extensions to install for coc
-let g:coc_global_extensions = ['coc-pyright', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-prettier']
+let g:coc_global_extensions = ['coc-pyright', 'coc-json', 'coc-tsserver', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-prettier', 'coc-eslint']
 let g:coc_filetype_map = { 'typescript': 'typescriptreact' }
 
 let g:vim_markdown_folding_disabled=1
@@ -225,6 +225,11 @@ let g:jsonnet_fmt_on_save = 0
 " Use builtin jsonnet formatter
 let g:formatdef_jfmt = '"jsonnetfmt -n 4 --string-style d --no-pad-arrays -"'
 let g:formatters_jsonnet = ['jfmt']
+" Use rustfmt with nightly features, as for some reason coc-rust-analyzer
+" doesn't support formatting with a config file
+" let g:formatdef_rustfmt = '"rustfmt +nightly"'
+let g:formatdef_rustfmt = '"rustfmt"'
+let g:formatters_jsonnet = ['rustfmt']
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
@@ -471,8 +476,8 @@ augroup CustomAU
         \| set softtabstop=2
 
   au FileType javascript
-        \  set shiftwidth=4
-        \| set softtabstop=4
+        \  set shiftwidth=2
+        \| set softtabstop=2
 
   " Adapt java tabs and line length.
   au FileType java,groovy

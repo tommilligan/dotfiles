@@ -99,6 +99,7 @@ plugins=(
   docker
   docker-compose
   dotenv
+  fzf
   history
   npm
   nvm
@@ -262,6 +263,7 @@ export TERM=xterm-256color
 
 if test -x =kubectl; then source <(kubectl completion zsh); fi
 
+# Find a regex pattern in bunch of files, then replace that regex pattern.
 function rgsed () {
   local find=$1
   local replace=$2
@@ -269,3 +271,16 @@ function rgsed () {
   rg "$find" -l0 | xargs -r0 sed -r -i "s/$find/$replace/g"
 }
 
+# cat a file, rendering anis escape codes
+function catansi () {
+  local filename=$1
+  echo -ne $(cat "$filename" | sed  's/$/\\n/' | sed 's/ /\\a /g')
+}
+
+function pretty-proptest () {
+  sed -e 's/\\n/\n/g' -e 's/\\u{1b}\[/[/g'
+}
+
+alias dc="docker compose"
+
+source /home/tom/.config/broot/launcher/bash/br
