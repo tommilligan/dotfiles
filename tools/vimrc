@@ -229,7 +229,7 @@ let g:formatters_jsonnet = ['jfmt']
 " doesn't support formatting with a config file
 " let g:formatdef_rustfmt = '"rustfmt +nightly"'
 let g:formatdef_rustfmt = '"rustfmt"'
-let g:formatters_jsonnet = ['rustfmt']
+let g:formatters_jsonnet = ['jfmt']
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
