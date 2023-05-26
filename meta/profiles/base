@@ -6,5 +6,6 @@ ssh-base
 terraform
 tmux
 vim
+nvim
 zsh
 docker

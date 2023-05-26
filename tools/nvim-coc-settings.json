@@ -1,0 +1,36 @@
+{
+  "coc.preferences.rootPatterns": [
+    "Dockerfile",
+    "package.json",
+    "setup.py",
+    "Cargo.toml"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "markdown",
+    "json",
+    "yaml"
+  ],
+  "eslint.autoFixOnSave": true,
+  "python.analysis.diagnosticEnabled": true,
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "pyright.disableDiagnostics": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck"
+  },
+  "rust-analyzer.checkOnSave.enable": true,
+  "rust-analyzer.checkOnSave.allTargets": true,
+  "rust-analyzer.checkOnSave.allFeatures": null,
+  "rust-analyzer.trace.server": "verbose",
+  "rust-analyzer.rustfmt.overrideCommand": ["rustfmt +nightly --edition 2021"],
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.updates.checkOnStartup": false,
+  "rust-analyzer.diagnostics.disabled": ["inactive-code"]
+}
