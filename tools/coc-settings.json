@@ -28,8 +28,9 @@
   "rust-analyzer.checkOnSave.allTargets": true,
   "rust-analyzer.checkOnSave.allFeatures": null,
   "rust-analyzer.trace.server": "verbose",
-  "rust-analyzer.rustfmt.overrideCommand": ["rustfmt"],
+  "rust-analyzer.rustfmt.overrideCommand": ["rustfmt +nightly --edition 2021"],
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
   "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.updates.checkOnStartup": false,
   "rust-analyzer.diagnostics.disabled": ["inactive-code"]
 }

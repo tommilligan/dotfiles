@@ -40,9 +40,12 @@ POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='000'
 POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='220'
 POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='000'
 
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND="yellow"
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND="black"
+
 # Prompt element configuration
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv nvm custom_rvm docker_machine vcs vi_mode custom_db_warning)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs command_execution_time)
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -246,10 +249,12 @@ alias esm='exercism'
 
 function wacup() {
   # Find device names with `xsetwacom --list`, `HEAD-x` indicates screen number
-  xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'HEAD-2'
-  xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'HEAD-2'
-  xsetwacom --set 'Wacom One by Wacom M Pen stylus' Rotate half
-  xsetwacom --set 'Wacom One by Wacom M Pen eraser' Rotate half
+  xsetwacom --set 'Wacom One by Wacom M Pen stylus' MapToOutput 'HEAD-1'
+  xsetwacom --set 'Wacom One by Wacom M Pen eraser' MapToOutput 'HEAD-1'
+  # xsetwacom --set 'Wacom One by Wacom M Pen stylus' Rotate half
+  # xsetwacom --set 'Wacom One by Wacom M Pen eraser' Rotate half
+  xsetwacom --set 'Wacom One by Wacom M Pen stylus' Rotate none
+  xsetwacom --set 'Wacom One by Wacom M Pen eraser' Rotate none
 }
 
 # The next line updates PATH for the Google Cloud SDK.

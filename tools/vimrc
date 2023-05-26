@@ -173,7 +173,7 @@ set wildignore+=*~,*.swp,.git
 let g:airline#extensions#hunks#enabled = 0
 let g:airline_powerline_fonts=1
 " show coc status instead of file name/filename at the bottom in statusline
-let g:airline_section_c = '%{coc#status()}'
+" let g:airline_section_c = '%{coc#status()}'
 let g:ctrlp_command = 'CtrlPMixed'
 let g:ctrlp_custom_ignore={
       \ 'dir': '\v(build|\.git|magicjar|blaze-.*|blaze-.*|)$',
@@ -217,6 +217,8 @@ let g:formatters_proto = ['clangproto']
 let g:formatdef_clangjava = '"clang-format -style=google -assume-filename=spam.java"'
 let g:formatters_java = ['clangjava']
 let g:formatters_groovy = ['clangjava']
+let g:formatdef_rubyfmt = '"rubyfmt"'
+let g:formatters_ruby = ['rubyfmt']
 
 let g:formatdef_pythoncombined = '"isort - | black - 2> /dev/null"'
 let g:formatters_python = ['pythoncombined']
@@ -227,8 +229,9 @@ let g:formatdef_jfmt = '"jsonnetfmt -n 4 --string-style d --no-pad-arrays -"'
 let g:formatters_jsonnet = ['jfmt']
 " Use rustfmt with nightly features, as for some reason coc-rust-analyzer
 " doesn't support formatting with a config file
-" let g:formatdef_rustfmt = '"rustfmt +nightly"'
-let g:formatdef_rustfmt = '"rustfmt"'
+let g:formatdef_rustfmt = '"rustfmt +nightly --edition 2021"'
+" let g:formatdef_rustfmt = '"rustfmt"'
+let g:formatters_rust = ['rustfmt']
 let g:formatters_jsonnet = ['jfmt']
 let g:autoformat_verbosemode = 0
 let g:autoformat_autoindent = 0
@@ -470,6 +473,11 @@ augroup CustomAU
         \| set softtabstop=4
         \| au! BufWritePre <buffer> :silent Autoformat
 
+  au FileType ruby
+        \  set shiftwidth=2
+        \| set softtabstop=2
+        \| au! BufWritePre <buffer> :silent Autoformat
+
   " Adapt typescript tabs and line length.
   au FileType typescript,json,typescriptreact
         \  set shiftwidth=2
@@ -569,3 +577,6 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" Don't fix no EOL in file (Windows devs!)
+set nofixendofline
