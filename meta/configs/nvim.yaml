@@ -1,4 +1,0 @@
-- link:
-    # NVim
-    ~/.config/nvim/init.vim: tools/nvim-vimrc
-    ~/.config/nvim/coc-settings.json: tools/nvim-coc-settings.json

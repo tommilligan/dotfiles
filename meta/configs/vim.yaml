@@ -1,5 +1,0 @@
-- link:
-    # Vim
-    ~/.vimrc: tools/vimrc
-    ~/.vim/init.vim: tools/vimrc
-    ~/.vim/coc-settings.json: tools/coc-settings.json
