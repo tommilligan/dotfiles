@@ -289,3 +289,5 @@ function pretty-proptest () {
 alias dc="docker compose"
 
 source /home/tom/.config/broot/launcher/bash/br
+
+export PATH=$PATH:/opt/apache-maven/bin
