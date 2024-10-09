@@ -59,3 +59,10 @@ function cargo-clean-all() {
 alias vi='nvim'
 
 alias methanol='gcloud beta compute ssh --zone "us-east1-b" "methanol" --project "scratch-303509"'
+
+function diff-dockerfiles() {
+  local from="$1"
+  local to="$2"
+
+  diff -u <(rg "COPY $from" -g Dockerfile -l | sort -u) <(rg "COPY $to" -g Dockerfile -l | sort -u)
+}

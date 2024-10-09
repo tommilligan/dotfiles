@@ -1,6 +1,12 @@
 {
-  "experimental": true,
-  "features": {
-    "buildkit": true
-  }
+    "experimental": true,
+    "features": {
+        "buildkit": true
+    },
+    "runtimes": {
+        "nvidia": {
+            "args": [],
+            "path": "nvidia-container-runtime"
+        }
+    }
 }

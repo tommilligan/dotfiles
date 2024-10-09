@@ -59,3 +59,9 @@ newHighlight = green bold 22
 
 [init]
 defaultBranch = main
+[maintenance]
+	repo = /home/tom/reinfer/platform
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate

@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/tom/.oh-my-zsh
+export ZSH=/home/tom/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Custom dir style
 POWERLEVEL9K_SHORTEN_DIR_LENGTH="2"
@@ -102,7 +102,6 @@ plugins=(
   docker
   docker-compose
   dotenv
-  fzf
   history
   npm
   nvm
@@ -185,9 +184,13 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # remap capslock to escape
+# edit /usr/share/X11/xkb/symbols/pc, change the line with CAPS to key <CAPS> {	[ Escape		]	};
+# then restart computer I think? or maybe just x session is enough
 alias maplock="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias UNMAPLOCK="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'"
 maplock
+alias mapfn="xmodmap -e 'keycode 0x97 = XF86WakeUp'"
+mapfn
 # python -c 'from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'
 
 # Add yarn
@@ -239,8 +242,7 @@ export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
 
-[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
-
+# Install fzf as described in the main repo, it will install zsh integration itself
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias clip='xclip -selection c'
@@ -266,14 +268,17 @@ if [ -f '/home/tom/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/tom/goo
 
 export TERM=xterm-256color
 
-if test -x =kubectl; then source <(kubectl completion zsh); fi
+# Disabled because it takes an incredibly long time to fail the first time
+# and blocks startup of the x session.
+# if test -x =kubectl; then source <(kubectl completion zsh); fi
 
 # Find a regex pattern in bunch of files, then replace that regex pattern.
 function rgsed () {
   local find=$1
   local replace=$2
+  local delimiter=${3:-"/"}
 
-  rg "$find" -l0 | xargs -r0 sed -r -i "s/$find/$replace/g"
+  rg "$find" -l0 | xargs -r0 sed -r -i "s${delimiter}${find}${delimiter}${replace}${delimiter}g"
 }
 
 # cat a file, rendering anis escape codes
@@ -288,6 +293,11 @@ function pretty-proptest () {
 
 alias dc="docker compose"
 
-source /home/tom/.config/broot/launcher/bash/br
-
 export PATH=$PATH:/opt/apache-maven/bin
+
+export PATH="/home/tom/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
